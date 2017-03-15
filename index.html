@@ -18,12 +18,17 @@
       <img src="shez.jpg" alt="shez" />
     </p>
     <script type="text/javascript">
-      window.setInterval(function(){
+      var ui = {};
+      ui.load = function(){
         ajax.post("https://www.bimwook.com/woo/ajax.do", "", function(data){
           var o =  document.getElementById("text");
           o.innerText = data;
-        });
+        });        
+      }
+      window.setInterval(function(){
+        ui.load();
       },30e3);
+      ui.load();
     </script>
   </body>
 </html>
