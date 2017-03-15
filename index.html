@@ -6,13 +6,23 @@
     <title>Hello,World</title>
     <style type="text/css">
       img{
-         max-width : 100%;
+        width:128px;
+        max-width : 100%;
       }
     </style>
+    <script type="text/javascript" src="https://www.bimwook.com/woo/common/ajax.js"></script>
   </head>
   <body>
+    <p id="text"></p>
     <p style="text-align: center">
       <img src="shez.jpg" alt="shez" />
     </p>
+    <script type="text/javascript">
+      window.setInterval(function(text){
+        ajax.post("https://www.bimwook.com/woo/ajax.do", function(data){
+          text.innerText = data;
+        });
+      },30e3, document.getElementById("text"));
+    </script>
   </body>
 </html>
