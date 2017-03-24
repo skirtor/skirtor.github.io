@@ -22,7 +22,7 @@
       ui.load = function(){
         ajax.post("https://www.bimwook.com/woo/ajax.do", "", function(data){
           var o =  document.getElementById("text");
-          o.innerText = data;
+          o.innerHTML = data;
         });        
       }
       window.setInterval(function(){
