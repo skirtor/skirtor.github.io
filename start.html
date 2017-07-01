@@ -399,10 +399,7 @@
         }
         return li;
       }
-      ui.items = [
-        {name: "八月远方", url: "https://www.bimwook.com"},
-        {name: "O-MUEN", url: "https://omuen.com"},
-      ];
+      ui.items = [ {name: "八月远方", url: "https://www.bimwook.com"}, {name: "O-MUEN", url: "https://omuen.com"} ];
       ui.items = [];
       ui.sort = function(o, callback){
         var me = this;
@@ -434,9 +431,6 @@
       
       ui.load = function(){
         var me = this;
-        for(var i=0; i< this.items.length; i++){
-          this.container.append(this.drawitem(this.items[i], true));
-        }
         ajax.get('./list.txt', function(data, err){
            try{
              var o = JSON.parse(data);
