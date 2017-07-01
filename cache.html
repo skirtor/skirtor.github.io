@@ -1,0 +1,182 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta content="telephone=no" name="format-detection" />
+    <title>Cache</title>
+    <link rel="stylesheet" type="text/css" href="https://www.bimwook.com/woo/common/common.css" />
+    <style type="text/css">
+      *{
+        box-sizing: border-box;
+      }
+      html{
+        margin:0 auto; 
+        padding:0; 
+        background: gray;
+        overflow-x: hidden;
+        overflow-y: hidden;
+        height: 100%;
+      }
+      body{
+        margin:0 auto; 
+        padding:0; 
+        text-align: center;
+        background: #EAEAEA;
+        height: 100%;
+        max-width: 720px;
+      }
+      a {cursor: pointer; text-decoration: none; color:#006291;}
+      a:link {color:#006291;}
+      a:visited {color:#006291;}
+      a:hover{ text-decoration: none; color: #FF6633;}
+      
+      button{
+        color: white;
+        border: none;
+        cursor: pointer;
+        vertical-align:middle;
+        display: inline-block;
+        height: 32px;
+        text-align: center;
+        font: bold 14px/32px verdana;
+        background: #008080;      
+      }
+      
+      .main{
+        position: relative;
+        margin: 0px auto;
+        padding: 36px 0 0 0;
+        text-align: center;
+        background: white;
+        font: normal 14px/32px verdana;
+        overflow: hidden;
+        width:100%;
+        height: 100%;
+      }
+      
+      .header{
+        position: relative;
+        margin-top: -36px;
+        padding: 0 36px;
+        height: 36px;
+        font: normal 14px/36px verdana;
+        background-color: #EEEEEE;
+        text-align: left;
+        overflow: hidden;
+        list-style: none;
+        border-bottom: solid 1px #DDDDDD;
+      }
+      
+      .header .btl{
+        display: inline-block;
+        margin-left: -36px;
+        width: 36px;
+        height: 36px;
+        background-color: transparent;
+        background-repeat: no-repeat;
+        background-position: 2px 2px;  
+        background-size:32px 32px;
+        background-image: url(/woo/common/img/back.png);
+      }
+
+      .header .title{
+        cursor: default;
+        width: 100%;
+        display: inline-block;
+        font: normal 14px/36px verdana;
+        text-align: center;
+        background-color: #EEEEEE;
+      }
+      
+      .header .btr{
+        display: block;
+        margin-right: -36px;
+        width: 36px;
+        height: 36px;
+        background-color: transparent;
+        background-repeat: no-repeat;
+        background-position: 8px 8px;  
+        background-size:24px 24px;
+        background-image: url(/woo/common/img/check.png);
+      }
+      
+      .header li{
+        display: inline-block;
+        float: left;
+      }
+      
+      .header li:active{
+        background-color: white;
+      }
+      
+      #content{
+        width: 100%;
+        height: 100%;
+        border: none;
+        box-sizing: border-box;
+        padding: 8px;
+        font: normal 12pt/1.5 verdana;
+      }
+      
+    </style>
+    <script type="text/javascript" src="https://www.bimwook.com/woo/common/muen/muen.js"></script>
+    <script type="text/javascript" src="https://www.bimwook.com/woo/common/ajax.js"></script>   
+  </head>
+  <body>
+    <div class="main">
+      <ul class="header">
+        <li class="btl"></li>
+        <li class="title" id="bar">[Loading...]</li>          
+        <li class="btr" id="submit"></li>
+      </ul>
+      <textarea id="content"></textarea>    
+    </div>
+    <script type="text/javascript">
+      muen.run(function(){
+      
+        var ui = {};
+        ui.querystring = window.location.search.match(/\?name=(.+)/) || window.location.pathname.match(/^\/cache\/(.+)/);
+        if(!ui.querystring){
+          window.location = "?name=www";
+        }
+        ui.name = ui.querystring ? ui.querystring[1]: "www";
+        ui.submit = muen.dom("submit");
+        ui.bar = muen.dom("bar");
+        ui.content = muen.dom("content");
+        ui.rndid = function(){
+          return (new Date()).getTime();
+        };
+        
+        ui.load = function(){
+          var me = this;
+          var url = "https://www.bimwook.com/woo/bin/cache/load.do?name=" + this.name + "&rndid=" + me.rndid();
+          bar.html(this.name);
+          me.content.value = "Loading...";
+          ajax.post(url, "",function(data){
+            me.content.value = data;
+          });
+        };
+        
+        ui.submit.on("click", function(){
+          var me = ui;
+          var url = "https://www.bimwook.com/woo/bin/cache/save.do?name=" + me.name;
+          var body = "content=" + muen.encoder.url(me.content.value);
+          ajax.post(url, body,function(data){
+            ui.bar.html("保存成功");
+            window.setTimeout(function(){
+              ui.bar.html(ui.name);
+            },1500);
+          });
+        });
+        
+        ui.load();
+      });
+    </script>
+  </body>
+</html>
+  
