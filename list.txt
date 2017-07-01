@@ -336,7 +336,7 @@
       "rowid": "3218349934051802443228613999930279318620",
       "name": "最新动态",
       "rank": 0,
-      "url": "/woo/www/mnt/radio/index.html"
+      "url": "https://www.bimwook.com/woo/www/mnt/radio/index.html"
     },
     {
       "rowid": "4242583002133446383323844853684102060235",
@@ -366,25 +366,25 @@
       "rowid": "1752297940332561733631900000681328275861",
       "name": "Cache",
       "rank": 0,
-      "url": "/woo/var/cache.htm"
+      "url": "https://www.bimwook.com/woo/var/cache.htm"
     },
     {
       "rowid": "0087937212193065851226127374460906439340",
       "name": "Cruiser-Add",
       "rank": 0,
-      "url": "/woo/resource/show.do?rowid=1389701547537616142530485119552252835885"
+      "url": "https://www.bimwook.com/woo/resource/show.do?rowid=1389701547537616142530485119552252835885"
     },
     {
       "rowid": "3356726515621581655925420722263517402543",
       "name": "NOTE",
       "rank": 0,
-      "url": "/woo/www/box/note.html"
+      "url": "https://www.bimwook.com/woo/www/box/note.html"
     },
     {
       "rowid": "0503247520536862333231949789160725119531",
       "name": "二维码",
       "rank": 0,
-      "url": "/woo/www/mnt/d2.htm"
+      "url": "https://www.bimwook.com/woo/www/mnt/d2.htm"
     },
     {
       "rowid": "3156717878090362708722529786680184671098",
@@ -438,7 +438,7 @@
       "rowid": "4210555076608882669821476072580987082543",
       "name": "O-MUEN",
       "rank": 0,
-      "url": "/woo/www/mnt/omuen/index.html"
+      "url": "https://www.bimwook.com/woo/www/mnt/omuen/index.html"
     },
     {
       "rowid": "1702651139471332684526588383773942283140",
@@ -456,7 +456,7 @@
       "rowid": "0746204036322875228626433806382926179270",
       "name": "Hello",
       "rank": 0,
-      "url": "/hello/index.html"
+      "url": "https://www.bimwook.com/hello/index.html"
     },
     {
       "rowid": "",
