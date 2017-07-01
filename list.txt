@@ -12,7 +12,7 @@
       "rowid": "3581191353108081728930824760110940970328",
       "name": "关于",
       "rank": 2147483647,
-      "url": "/woo/about.do"
+      "url": "https://www.bimwook.com/woo/about.do"
     },
     {
       "rowid": "4181695467181181701626256519181771437191",
@@ -94,7 +94,7 @@
     },
     {
       "rowid": "1204691064373991736624617449343068634102",
-      "name": "我的工作台",
+      "name": "我的工作台",
       "rank": 0,
       "url": "https://www.bimwook.com/woo/www/index.html"
     },
