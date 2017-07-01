@@ -87,28 +87,16 @@
       "url": "https://www.bimwook.com/woo/www/mobile/today.htm"
     },
     {
-      "rowid": "4119175827337021672831783151602494287577",
-      "name": "Note.View",
-      "rank": 0,
-      "url": "/woo/www/mobile/news.htm"
-    },
-    {
-      "rowid": "1119578985303931939328820424932596058901",
-      "name": "Note.Write",
-      "rank": 0,
-      "url": "/woo/www/box/new.htm"
-    },
-    {
       "rowid": "0750889824649821802122359944490341550280",
       "name": "Radio",
       "rank": 0,
-      "url": "/woo/www/mnt/radio/index.html"
+      "url": "https://www.bimwook.com/woo/www/mnt/radio/index.html"
     },
     {
       "rowid": "1204691064373991736624617449343068634102",
-      "name": "Folder",
+      "name": "我的工作台",
       "rank": 0,
-      "url": "https://www.bimwook.com/woo/www/mnt/folder/main.htm"
+      "url": "https://www.bimwook.com/woo/www/index.html"
     },
     {
       "rowid": "1605225146361581888622515797563228840316",
