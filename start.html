@@ -321,7 +321,6 @@
         if(evt.target && evt.dom){
           evt.target.className = "";
           ui.container.insertBefore(evt.dom, evt.target);
-          ui.buildorder();
         }
         
         if(evt.dom){
@@ -334,17 +333,7 @@
         evt.target = null;
         evt.drag = false;
       }
-      ui.buildorder = function(){
-        var list =  this.container.getElementsByTagName("li");
-        var rowids = [];
-        for(var i=0; i<list.length; i++){
-          var li = list[i];
-          rowids.push(li.data.rowid);
-        }
-        ajax.post('./sort.txt', 'rowids=' + window.encodeURIComponent(rowids.join('\r\n')), function(data, err){
-          console.log(data);
-        })
-      }
+
       ui.drawitem = function(item, fixed){
         var me = this;
         var data = {rowid: item.rowid||"0", name: item.name||"无题", url: item.url||"about:blank"};
@@ -403,7 +392,7 @@
       ui.items = [];
       ui.sort = function(o, callback){
         var me = this;
-        ajax.get("./sort.txt", function(data, error){
+        ajax.get("./data/sort.txt", function(data, error){
           if(error) return;
           var p = data.indexOf('\n\n');
           if(p==-1) return;
@@ -431,7 +420,7 @@
       
       ui.load = function(){
         var me = this;
-        ajax.get('./list.txt', function(data, err){
+        ajax.get('./data/list.txt', function(data, err){
            try{
              var o = JSON.parse(data);
              me.sort(o, function(list){
