@@ -407,7 +407,7 @@
           if(error) return;
           var p = data.indexOf('\n\n');
           if(p==-1) return;
-          var list = data.slice(p+4).split('\n');
+          var list = data.slice(p+2).split('\n');
           var all = new Hash();
           var ret = new List();
           for(var i=0; i<o.items.length; i++){
