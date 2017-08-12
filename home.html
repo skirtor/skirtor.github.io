@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head><title>Loading...</title></head>
+  <script type="text/javascript" src="./js/ajax.js"></script>
+  <body>
+    <script type="text/javascript">
+      var ui = {};
+      ui.serverid = "Server.uid: 1106998678468001895030322068211092689070"
+      ui.go = function(host){
+        var url = "https://" + host + "/woo/about.do";
+        ajax.get(url, function(data, error){
+          if( (!error) && ((data||"").indexOf(ui.serverid)>-1) ){
+            window.location = "https://" + host + "/woo/www/start.html";
+          }
+        });
+      };
+      ui.go("local.bimwook.com");
+      ui.go("www.bimwook.com:11180");
+    </script>
+  </body>
+</html>
