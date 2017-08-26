@@ -20,7 +20,7 @@
       }
     </style>
     <base href="https://www.bimwook.com/" />
-    <script type="text/javascript" src="https://www.bimwook.com/woo/common/ajax.js"></script>
+    <script type="text/javascript" src="https://www.bimwook.com:11180/woo/common/ajax.js"></script>
   </head>
   <body>
     <p id="text"></p>
@@ -30,7 +30,7 @@
     <script type="text/javascript">
       var ui = {};
       ui.load = function(){
-        ajax.post("https://www.bimwook.com/woo/ajax.do", "", function(data){
+        ajax.post("https://www.bimwook.com:11180/woo/ajax.do", "", function(data){
           var o =  document.getElementById("text");
           o.innerHTML = data;
         });        
