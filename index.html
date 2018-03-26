@@ -20,7 +20,7 @@
       }
     </style>
     <base href="https://www.bimwook.com:11180/" />
-    <script type="text/javascript" src="https://www.bimwook.com:11180/woo/common/ajax.js"></script>
+    <script type="text/javascript" src="https://www.bimwook.com:11180/woo/common/o-muen.js"></script>
   </head>
   <body>
     <p id="text"></p>
@@ -30,9 +30,9 @@
     <script type="text/javascript">
       var ui = {};
       ui.load = function(){
-        ajax.post("https://www.bimwook.com:11180/woo/ajax.do", "", function(data){
-          var o =  document.getElementById("text");
-          o.innerHTML = data;
+        ajax.post("https://www.bimwook.com:11180/woo/ajax.do", "", function(o){
+          var dom =  document.getElementById("text");
+          dom.innerHTML = o.text;
         });        
       }
       window.setInterval(function(){
