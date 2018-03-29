@@ -19,8 +19,7 @@
         max-width: 480px;
       }
     </style>
-    <base href="https://www.bimwook.com:11180/" />
-    <script type="text/javascript" src="https://www.bimwook.com:11180/woo/common/o-muen.js"></script>
+    <script type="text/javascript" src="/common/o-muen.js"></script>
   </head>
   <body>
     <p id="text"></p>
@@ -28,17 +27,26 @@
       <img src="shez.jpg" alt="shez" />
     </p>
     <script type="text/javascript">
-      var ui = {};
-      ui.load = function(){
-        ajax.post("https://www.bimwook.com:11180/woo/ajax.do", "", function(o){
-          var dom =  document.getElementById("text");
-          dom.innerHTML = o.text;
-        });        
+      -function(){
+        var ui = {};
+        ui.load = function(host){
+          ajax.post("https://" + host + "/humans.txt", "", function(o){
+            var dom =  document.getElementById("text");
+            dom.innerHTML = o.text;
+          });        
+        }
+        ui.go = function(host){
+          var me = this;
+          var url = "https://" + host + "/woo/about.do";
+          ajax.get(url, function(o){
+            if( o && o.text ){
+              me.load(host);
+            }
+          });
+        };
+        ui.go("local.bimwook.com");
+        ui.go("www.bimwook.com:11180");
       }
-      window.setInterval(function(){
-        ui.load();
-      },30e3);
-      ui.load();
     </script>
   </body>
 </html>
