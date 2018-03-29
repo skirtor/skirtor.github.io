@@ -9,7 +9,7 @@
     <meta content="black" name="apple-mobile-web-app-status-bar-style" />
     <meta content="telephone=no" name="format-detection" />
     <title>Cache</title>
-    <link rel="stylesheet" type="text/css" href="https://www.bimwook.com/woo/common/common.css" />
+    <link rel="stylesheet" type="text/css" href="https://www.bimwook.com:11180/woo/common/common.css" />
     <style type="text/css">
       *{
         box-sizing: border-box;
@@ -124,8 +124,8 @@
       }
       
     </style>
-    <script type="text/javascript" src="https://www.bimwook.com/woo/common/muen/muen.js"></script>
-    <script type="text/javascript" src="https://www.bimwook.com/woo/common/ajax.js"></script>   
+    <script type="text/javascript" src="https://www.bimwook.com:11180/woo/common/muen/muen.js"></script>
+    <script type="text/javascript" src="https://www.bimwook.com:11180/woo/common/ajax.js"></script>   
   </head>
   <body>
     <div class="main">
@@ -154,7 +154,7 @@
         
         ui.load = function(){
           var me = this;
-          var url = "https://www.bimwook.com/woo/bin/cache/load.do?name=" + this.name + "&rndid=" + me.rndid();
+          var url = "https://www.bimwook.com:11180/woo/bin/cache/load.do?name=" + this.name + "&rndid=" + me.rndid();
           bar.html(this.name);
           me.content.value = "Loading...";
           ajax.post(url, "",function(data){
@@ -164,7 +164,7 @@
         
         ui.submit.on("click", function(){
           var me = ui;
-          var url = "https://www.bimwook.com/woo/bin/cache/save.do?name=" + me.name;
+          var url = "https://www.bimwook.com:11180/woo/bin/cache/save.do?name=" + me.name;
           var body = "content=" + muen.encoder.url(me.content.value);
           ajax.post(url, body,function(data){
             ui.bar.html("保存成功");
