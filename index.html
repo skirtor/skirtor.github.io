@@ -3,11 +3,12 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     <meta charset="utf-8" />    
-    <title>Hello,World</title>
+    <title>humans.txt</title>
     <style type="text/css">
       html,body{
         margin:0; 
         padding:0;
+        font-size: 16px;
       }
       img{
         max-width : 100%;
@@ -19,6 +20,12 @@
         max-width: 480px;
       }
       pre {
+        margin: 32px auto;
+        padding: 8px;
+        background-color: #EAEAEA;
+        max-width: 640px;
+        font-size: 0.8em;
+        font-family: verdana;
         word-wrap: break-word; 
         white-space: pre-wrap;      
       }
@@ -41,7 +48,7 @@
         }
         ui.go = function(host){
           var me = this;
-          var url = "https://" + host + "/woo/about.do";
+          var url = "https://" + host + "/about.io";
           ajax.get(url, function(o){
             if( o && o.text ){
               me.load(host);
