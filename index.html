@@ -43,9 +43,15 @@
       -function(){
         var ui = {};
         ui.load = function(host){
+          var dom =  document.getElementById("text");
+          var text = ["", ""];
+          ajax.get("https://" + host + "/woo/bin/cache/load.do?name=skirtor.github.io", function(o){
+            text[0] = o.text;
+            dom.innerHTML = text.join("\r\n");
+          });
           ajax.post("https://" + host + "/humans.txt", "", function(o){
-            var dom =  document.getElementById("text");
-            dom.innerHTML = o.text;
+            text[1] = o.text;
+            dom.innerHTML = text.join("\r\n");
           });        
         }
         ui.go = function(host){
