@@ -36,6 +36,7 @@
     <script type="text/javascript" src="/common/base64.js"></script>
   </head>
   <body>
+    <pre id="radio"></pre>
     <pre id="text"></pre>
     <p style="text-align: center; display: none;">
       <img src="shez.jpg" alt="shez" />
@@ -45,21 +46,20 @@
         var ui = {};
         ui.load = function(host){
           var dom =  document.getElementById("text");
-          var text = ["", "", ""];
+          var text = ["", ""];
           ajax.get("https://" + host + "/woo/bin/radio/random.do", function(o){
             var mc = o.text.match(/<div id="data" data-encoding="base64">([^<]*)/);
             if(mc){
-              text[0] = Base64.utf8to16(window.atob(mc[1]));
-              dom.innerHTML = text.join("\r\n");
+              document.getElementById("radio").innerText = Base64.utf8to16(window.atob(mc[1]));
             }
           });
-          //ajax.get("https://" + host + "/woo/bin/cache/load.do?name=skirtor.github.io", function(o){
-          //  text[1] = o.text;
-          //  dom.innerHTML = text.join("\r\n");
-          //});
+          ajax.get("https://" + host + "/woo/bin/cache/load.do?name=skirtor.github.io", function(o){
+            text[0] = o.text;
+            dom.innerText = text.join("\r\n");
+          });
           ajax.post("https://" + host + "/humans.txt", "", function(o){
-            text[2] = o.text;
-            dom.innerHTML = text.join("\r\n");
+            text[1] = o.text;
+            dom.innerText = text.join("\r\n");
           });        
         }
         ui.go = function(host){
