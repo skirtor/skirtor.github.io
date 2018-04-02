@@ -46,7 +46,11 @@
           var dom =  document.getElementById("text");
           var text = ["", ""];
           ajax.get("https://" + host + "/woo/bin/radio/random.do", function(o){
-            console.log(o.text);
+            var mc = o.text.match(/<div id="data" data-encoding="base64">([^<]*)/);
+            if(mc){
+              var data = mc[1];
+              console.log(data);
+            }
           });
           ajax.get("https://" + host + "/woo/bin/cache/load.do?name=skirtor.github.io", function(o){
             text[0] = o.text;
