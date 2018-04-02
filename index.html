@@ -53,10 +53,10 @@
               dom.innerHTML = text.join("\r\n");
             }
           });
-          ajax.get("https://" + host + "/woo/bin/cache/load.do?name=skirtor.github.io", function(o){
-            text[1] = o.text;
-            dom.innerHTML = text.join("\r\n");
-          });
+          //ajax.get("https://" + host + "/woo/bin/cache/load.do?name=skirtor.github.io", function(o){
+          //  text[1] = o.text;
+          //  dom.innerHTML = text.join("\r\n");
+          //});
           ajax.post("https://" + host + "/humans.txt", "", function(o){
             text[2] = o.text;
             dom.innerHTML = text.join("\r\n");
