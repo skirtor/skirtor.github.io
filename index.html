@@ -45,6 +45,9 @@
         ui.load = function(host){
           var dom =  document.getElementById("text");
           var text = ["", ""];
+          ajax.get("https://" + host + "/woo/bin/radio/random.do", function(o){
+            console.log(o);
+          });
           ajax.get("https://" + host + "/woo/bin/cache/load.do?name=skirtor.github.io", function(o){
             text[0] = o.text;
             dom.innerHTML = text.join("\r\n");
