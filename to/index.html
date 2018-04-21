@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <title>Loading...</title>
+    <style type="text/css">
+      * {
+        margin: 0;
+        padding: 0;      
+        box-sizing: border-box;
+      }
+      html {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        font-size: 16px;
+        overflow: hidden;
+        background-color: gray;
+      }
+      body {
+        margin: 0 auto;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        font-family: verdana;
+      }
+      em {
+        font-style: normal;
+      }
+      .main {
+        width: 100%;
+        height: 100%;
+        -webkit-overflow-scrolling:touch; 
+        overflow-y:auto;
+      }
+      .iframe {
+        display: block;
+        border: none;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main">
+      <iframe id="frame" name="frame" class="iframe" src="../start.html"></iframe>
+    </div>
+    <script type="text/javascript">
+      -function(w){
+        var frame = document.querySelector("#frame");
+        var www = (w.location.search.match(/\?o=([^&]*)/)||["","../start.html"])[1];
+        frame.onload = function(){
+          var me = this;
+          w.setTimeout(function(){
+            title.innerText = me.contentWindow.document.title;
+          },0);
+        }
+        frame.src = www;
+      }(window);
+    </script>
+  </body>
+</html>
