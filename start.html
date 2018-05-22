@@ -393,9 +393,9 @@
       ui.items = [];
       ui.sort = function(o, callback){
         var me = this;
-        ajax.get("./data/sort.txt", function(o){
-          if(o.error) return;
-          var data = o.text;
+        ajax.get("./data/sort.txt", function(x){
+          if(x.error) return;
+          var data = x.text;
           var p = data.indexOf('\n\n');
           if(p==-1) return;
           var list = data.slice(p+2).split('\n');
