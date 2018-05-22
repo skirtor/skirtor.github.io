@@ -14,12 +14,13 @@
       }
     </style>
   </head>
-  <script type="text/javascript" src="./js/o-muen.js"></script>
+  <script type="text/javascript" src="./common/o-muen.js"></script>
   <body>
     <div class="row">正在检测网络配置...</div>
     <div class="row">Checking Network Settings...</div>
     <script type="text/javascript">
       -function(w){
+        var ajax = window.Modules.load("ajax");
         var ui = {};
         ui.serverid = "1106998678468001895030322068211092689070";
         ui.go = function(domain){
