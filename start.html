@@ -199,7 +199,7 @@
         return this.id(document.createElement(tag));
       };
     </script>
-    <script type="text/javascript" src="./js/ajax.js"></script>
+    <script type="text/javascript" src="./common/ajax.js"></script>
   </head>
   <body>
     <div class="body">
@@ -211,6 +211,7 @@
       <span id="umemo">每一天从这里开始</span>
     </div>
     <script type="text/javascript">
+      var ajax = window.Modules.load("ajax");
       var Hash  = function(){
         this.items = {};
         this.get = function(k){
@@ -392,8 +393,9 @@
       ui.items = [];
       ui.sort = function(o, callback){
         var me = this;
-        ajax.get("./data/sort.txt", function(data, error){
-          if(error) return;
+        ajax.get("./data/sort.txt", function(o){
+          if(o.error) return;
+          var data = o.text;
           var p = data.indexOf('\n\n');
           if(p==-1) return;
           var list = data.slice(p+2).split('\n');
@@ -420,9 +422,9 @@
       
       ui.load = function(){
         var me = this;
-        ajax.get('./data/list.txt', function(data, err){
+        ajax.get('./data/list.txt', function(x){
            try{
-             var o = JSON.parse(data);
+             var o = x.json();
              me.sort(o, function(list){
                list.foreach(function(item){
                  if(!item) return;
