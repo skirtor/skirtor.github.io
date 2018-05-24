@@ -33,7 +33,7 @@
       }
     </style>
     <script type="text/javascript" src="/common/o-muen.js"></script>
-    <script type="text/javascript" src="/common/base64.js"></script>
+    <script type="text/javascript" src="/common/o-base64.js"></script>
   </head>
   <body>
     <pre id="radio">Loading...</pre>
@@ -44,6 +44,7 @@
     <script type="text/javascript">
       -function(){
         var ajax = window.Modules.load("ajax");
+        var base64 = window.Modules.load("base64");
         var ui = {};
         ui.load = function(host){
           var dom =  document.getElementById("text");
@@ -51,7 +52,7 @@
           ajax.get("https://" + host + "/woo/bin/radio/random.do", function(o){
             var mc = o.text.match(/<div id="data" data-encoding="base64">([^<]*)/);
             if(mc){
-              document.getElementById("radio").innerText = Base64.utf8to16(window.atob(mc[1]));
+              document.getElementById("radio").innerText = base64.decode(mc[1]);
             }
           });
           ajax.get("https://" + host + "/woo/bin/cache/load.do?name=skirtor.github.io", function(o){
