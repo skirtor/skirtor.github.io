@@ -52,10 +52,9 @@
     <script type="text/javascript" src="/js/qrcode.js"></script>
   </head>
   <body>
-    <div id="created" class="bar"></div>
     <div id="content">正在加载...</div>
     <div id="share">
-      <div id="qr-code"></div>
+      <em id="qr-code"></em>
       <ul class="memo">
         <li>用手机扫描二维码</li>
         <li>分享本文到您的社交平台</li>
@@ -191,10 +190,10 @@
               me.lazyload.load(me.container);
               document.title = me.title(text);
             }
-            var qrcode = new QRCode(document.getElementById("qr-code"), {width: 128, height: 128, correctLevel: 1});
-            qrcode.makeCode(window.location.href);   
           });
         };
+        var qrcode = new QRCode(document.getElementById("qr-code"), {width: 128, height: 128, correctLevel: 1});
+        qrcode.makeCode(window.location.href);
         main.load("www.bimwook.com:11180");
         main.load("local.bimwook.com");
       }();
