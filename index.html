@@ -189,7 +189,7 @@
             if(mc){
               var text = base64.decode(mc[1]);
               var html = marked.parse(me.encode(text));
-              me.container.innerHTML = html.replace(/<img src=/g, "<img data-src=");
+              me.container.innerHTML = html.replace(/<img src="/g, '<img data-src="https://' + host);
               me.lazyload.load(me.container);
               document.title = me.title(text);
             }
