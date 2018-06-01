@@ -179,9 +179,9 @@
         };
         main.load = function(host){
           var me = this;
-          var rowid = (window.search.match(/\?\d{48}/)||["","0"])[1]
-          if(this.rowid=="0") {me.container.innerHTML="Bad-Rowid"; return;}
-          ajax.get("https://" + host + "/woo/bin/radio/random.do", function(o){
+          var rowid = (window.location.search.match(/\?\d{48}/)||["","0"])[1]
+          if(rowid=="0") {me.container.innerHTML="Bad-Rowid"; return;}
+          ajax.get("https://" + host + "/woo/bin/radio/view.html?rowid=" + rowid, function(o){
             var mc = o.text.match(/<div id="data" data-encoding="base64">([^<]*)/);
             if(mc){
               var text = base64.decode(mc[1]);
