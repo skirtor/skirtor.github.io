@@ -1,80 +1,201 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="zh-cn">
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
-    <meta charset="utf-8" />    
-    <title>humans.txt</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="bimwook.com" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no" />
+    <title>Radio - bimwook.com</title>
     <style type="text/css">
-      html,body{
-        margin:0; 
-        padding:0;
-        font-size: 16px;
+      html {margin:0; padding:0; background: gray;}
+      body {margin:0 auto; padding:0; width: 100%; max-width: 980px; font-size: 16px; line-height: 1.8; font-family: "Microsoft Yahei", "微软雅黑", verdana; }
+      img  {max-width: 100%; background-color: #EAEAEA; display:block; margin: 0 auto;}
+      h1,h2,h3,h4,h5,h6 { text-indent: 28px; }
+      h1 {font-size: 32px;}
+      h2 {font-size: 24px;}
+      h3 {font-size: 18px;}
+      h4 {font-size: 16px;}
+      h5 {font-size: 14px;}
+      h6 {font-size: 12px;}
+      a {text-decoration: none; color:#006291;}
+      a:link {color:#006291;}
+      a:visited {color:#006291;}
+      a:hover{ text-decoration: none; color: #FF6633;}
+      hr{ border: none; height: 1px; background: #DDDDDD; }
+      p{margin: 0; padding: 0; text-indent: 2em;}
+      blockquote{ margin: 2em; padding: 8px; text-indent: 0; border-left: solid 5px silver; background-color: #EEEEEE;}
+      .tag{font-size: 0.9em; border: solid 1px silver; border-radius: 3px; padding: 4px; background-color: #EEEEEE; color: gray; vertical-align: middle;}
+      .bar {padding: 4px 16px; color: gray; background-color: #EAEAEA; }
+      .small { font-size:0.7em; }
+      #content {color: #646464; padding: 32px 96px; background-color: white; overflow: hidden; font-size: 14px; line-height: 2; }
+      #likeit {cursor: pointer; padding: 0 8px; color:#006291; margin-left: 8px; background-color: #FAFAFA;}
+      #likeit:active {background-color: white;}
+      #share {padding: 32px 96px; display: block; overflow: hidden; background-color: #FAFAFA;}
+      #share .qr-code {float: left;}
+      #share .memo {float: left; margin: 0; padding: 8px; list-style-type: none;}
+      #data {display: none;}
+      @media screen and (max-width: 639px) {
+        #content{ padding: 8px 32px; overflow: hidden; }
+        #share{ display: none; }
       }
-      img{
-        max-width : 100%;
-      }
-      p{
-        color: #646464;
-        margin: 32px auto;
-        padding: 8px;
-        background-color: #FAFAFA;
-        max-width: 480px;
-      }
-      pre {
-        margin: 2em auto;
-        padding: 2em;
-        color: #646464;
-        background-color: #FAFAFA;
-        max-width: 640px;
-        font-size: 0.8em;
-        font-family: verdana;
-        word-wrap: break-word; 
-        white-space: pre-wrap;      
+      @media screen and (max-width: 479px) {
+        #content{ padding: 8px 16px; overflow: hidden; }
+        #share{ display: none; }
       }
     </style>
     <script type="text/javascript" src="/common/o-muen.js"></script>
+    <script type="text/javascript" src="/common/o-marked.js"></script>
     <script type="text/javascript" src="/common/o-base64.js"></script>
   </head>
   <body>
-    <pre id="radio">Loading...</pre>
-    <pre id="text"></pre>
-    <p style="text-align: center; display: none;">
-      <img src="shez.jpg" alt="shez" />
-    </p>
+    <div id="created" class="bar"></div>
+    <div id="content">正在加载...</div>
+    <div id="share">
+      <img id="qrcode" class="qr-code" src="/img/opacity.png" alt="QR-CODE" />
+      <ul class="memo">
+        <li>用手机扫描二维码</li>
+        <li>分享本文到您的社交平台</li>
+      </ul>
+    </div>
+    <div class="bar">
+      <a href="/">八月远方</a>
+      <span class="small">| www.bimwook.com | omuen.com | Since 2006</span>
+    </div>
     <script type="text/javascript">
       -function(){
         var ajax = window.Modules.load("ajax");
+        var marked = window.Modules.load("marked");
         var base64 = window.Modules.load("base64");
-        var ui = {};
-        ui.load = function(host){
-          var dom =  document.getElementById("text");
-          var text = ["", ""];
+        var main = {};
+        main.rowid="0";
+        main.title = function(data){
+          var regex = /^(#{1,6}) {0,}([^\n]+?) *#* *(?:\n+|$)/;
+          var t="无题";
+          var min = 7;
+          var lines = (data||"").split("\n");
+          for(var i=0; i<lines.length; i++){
+            var line = (lines[i]||"").replace(/(^\s*)|(\s*$)/g, "");
+            var mcs = line.match(regex);
+            if(!mcs) continue;
+            var l = mcs[1].length;
+            if(l<min){ t = mcs[2]; min = l;}
+          }
+          return t;
+        };
+        main.encode = function(s){
+          return s.replace(/\r/g, "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
+        };
+        main.container = document.getElementById("content");
+        main.lazyload = {};
+        main.lazyload.locked = false;
+        main.lazyload.items = [];
+        main.lazyload.clear = function(){
+          this.items = [];
+          this.locked = false;
+        };
+        main.lazyload.onscroll = function(){
+          var me = this;
+          var top = (document.documentElement.scrollTop || document.body.scrollTop);
+          var line = top + document.documentElement.clientHeight;
+          if (me.locked) return;
+          me.locked = true;
+          var rest = [];
+          while(me.items.length>0){
+            var img = me.items.pop();
+            var t = img.offsetTop;
+            if((t>=top) && (t<=line)) {
+              img.onload = function(){
+                this.style.cursor = "pointer";
+                this.style.width="auto";
+                this.style.background = "#EAEAEA";
+                this.onclick = function(){  
+                  window.open(this.src);
+                };
+              };
+              img.onerror = function(){
+                this.style.cursor = "pointer";
+                var src= this.src;
+                this.onclick = function(){  
+                  this.src = src;
+                };
+                this.src="/img/picture.png";
+              }
+              img.src = img.status.src;
+            }
+            else{
+              rest.push(img);
+            }
+          }
+          me.items = rest.reverse();
+          if(me.items.length==0) {
+            window.onscroll = null;
+          }
+          me.locked = false;
+        };
+        main.lazyload.reset = function(id){
+          var me = this;
+          var o = (typeof id=="string")?document.getElementById(id) : id;
+          if(!o) return;
+          var list = o.getElementsByTagName("img");
+          for(var i=0; i<list.length; i++){ 
+            var img = list[i];
+            img.src="/woo/common/img/opacity.png";
+            img.style.width="100%";
+            img.style.height = "auto";
+            img.style.background = "silver url(/img/trans.png) repeat";
+          }
+        };
+        main.lazyload.load = function(id){
+          var me = this;
+          var o = (typeof id=="string")?document.getElementById(id) : id;
+          if(!o) return;
+          var imglist = o.getElementsByTagName("img");
+          var temp = [];
+          for(var i=0; i<imglist.length; i++){ 
+            temp.push(imglist[i]);
+          }
+          imglist = null;
+          temp.reverse();
+          for(var i=0; i<temp.length; i++){ 
+            var img = temp[i];
+            var src = img.attributes["data-src"]||{name:"",value:"/img/opacity.png"};
+            img.src="/woo/common/img/opacity.png";
+            img.style.width="100%";
+            img.style.height = "auto";
+            img.style.background = "silver url(/img/trans.png) repeat";
+            img.status={loaded:false, src: src.value};
+            me.items.push(img);
+          }
+          temp = null;
+          if(window.onscroll==null){
+            window.onscroll = function(){
+              me.onscroll();
+            };
+          };
+          this.onscroll();
+        };
+        main.load = function(host){
+          var me = this;
+          var rowid = (window.search.match(/\?\d{48}/)||["","0"])[1]
+          if(this.rowid=="0") {me.container.innerHTML="Bad-Rowid"; return;}
           ajax.get("https://" + host + "/woo/bin/radio/random.do", function(o){
             var mc = o.text.match(/<div id="data" data-encoding="base64">([^<]*)/);
             if(mc){
-              document.getElementById("radio").innerText = base64.decode(mc[1]);
+              var text = base64.decode(mc[1]);
+              var html = marked.parse(me.encode(text));
+              me.container.innerHTML = html.replace(/<img src=/g, "<img data-src=");
+              me.lazyload.load(me.container);
+              document.title = me.title(text);
             }
-          });
-          ajax.get("https://" + host + "/woo/bin/cache/load.do?name=skirtor.github.io", function(o){
-            text[0] = o.text;
-            dom.innerText = text.join("\r\n");
-          });
-          ajax.post("https://" + host + "/humans.txt", "", function(o){
-            text[1] = o.text;
-            dom.innerText = text.join("\r\n");
-          });        
-        }
-        ui.go = function(host){
-          var me = this;
-          var url = "https://" + host + "/about.io";
-          ajax.get(url, function(o){
-            if( o && o.text ){
-              me.load(host);
-            }
+            //var url = window.location.href;
+            //document.getElementById("qrcode").src = ;        
           });
         };
-        ui.go("local.bimwook.com");
-        ui.go("www.bimwook.com:11180");
+        main.load("www.bimwook.com:11180");
+        main.load("local.bimwook.com");
       }();
     </script>
   </body>
