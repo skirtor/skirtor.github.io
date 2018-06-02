@@ -31,7 +31,7 @@
       .tag{font-size: 0.9em; border: solid 1px silver; border-radius: 3px; padding: 4px; background-color: #EEEEEE; color: gray; vertical-align: middle;}
       .bar {padding: 4px 16px; color: gray; background-color: #EAEAEA; }
       .small { font-size:0.7em; }
-      #content {color: #646464; padding: 2em 6em; background-color: white; overflow: hidden; font-size: 0.875em; line-height: 1.618; }
+      #content {color: #646464; padding: 2em 6em; background-color: white; overflow: hidden; font-size: 0.875em; line-height: 2; }
       #likeit {cursor: pointer; padding: 0 8px; color:#006291; margin-left: 8px; background-color: #FAFAFA;}
       #likeit:active {background-color: white;}
       #share {padding: 2em 6em; display: block; overflow: hidden; background-color: #FAFAFA;}
@@ -192,13 +192,14 @@
               var text = base64.decode(mc[1]);
               var html = marked.parse(me.encode(text));
               var location = window.encodeURIComponent(window.location.href);
-              var rowid = (o.text.match(/name="woo:rowid" content="(\d{48})"/)||["",""])[1];
               var qr = "https://" + host + "/woo/bin/barcode/twod.do?barcode=" + location;
               me.container.innerHTML = html.replace(/<img src="/g, '<img data-src="https://' + host);
               me.lazyload.load(me.container);
               document.title = me.title(text);
               document.getElementById("qr-code").src= qr;
-              window.location.hash = rowid;
+              if(x==="/woo/bin/radio/random.do"){
+                window.location.hash = (o.text.match(/name="woo:rowid" content="(\d{48})"/)||["",""])[1];              
+              }
             }
           });
         };
