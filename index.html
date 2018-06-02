@@ -191,15 +191,15 @@
             if(mc){
               var text = base64.decode(mc[1]);
               var html = marked.parse(me.encode(text));
+              if(x==="/woo/bin/radio/random.do"){
+                window.location.replace("?" + (o.text.match(/name="woo:rowid" content="(\d{48})"/)||["",""])[1]);              
+              }
               var location = window.encodeURIComponent(window.location.href);
               var qr = "https://" + host + "/woo/bin/barcode/twod.do?barcode=" + location;
               me.container.innerHTML = html.replace(/<img src="/g, '<img data-src="https://' + host);
               me.lazyload.load(me.container);
               document.title = me.title(text);
               document.getElementById("qr-code").src= qr;
-              if(x==="/woo/bin/radio/random.do"){
-                window.location.hash = (o.text.match(/name="woo:rowid" content="(\d{48})"/)||["",""])[1];              
-              }
             }
           });
         };
