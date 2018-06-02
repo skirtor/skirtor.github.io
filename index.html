@@ -196,7 +196,7 @@
               var text = base64.decode(mc[1]);
               var html = marked.parse(me.encode(text));
               if(x==="/woo/bin/radio/random.do"){
-                window.location.replace("?" + (o.text.match(/name="woo:rowid" content="(\d{48})"/)||["",""])[1]);              
+                history.replaceState("", "", "?" + (o.text.match(/name="woo:rowid" content="(\d{48})"/)||["",""])[1]);              
               }
               var location = window.encodeURIComponent(window.location.href);
               var qr = "https://" + host + "/woo/bin/barcode/twod.do?barcode=" + location;
