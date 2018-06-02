@@ -190,10 +190,12 @@
             if(mc){
               var text = base64.decode(mc[1]);
               var html = marked.parse(me.encode(text));
+              var location = window.encodeURIComponent(window.location.href);
+              var qr = "https://" + host + "/woo/bin/barcode/twod.do?barcode=" + location;
               me.container.innerHTML = html.replace(/<img src="/g, '<img data-src="https://' + host);
               me.lazyload.load(me.container);
               document.title = me.title(text);
-              document.getElementById("qr-code").src="https://" + host + "/woo/bin/barcode/twod.do?barcode=" + window.encodeURIComponent(window.location.href);
+              document.getElementById("qr-code").src= qr;
             }
           });
         };
