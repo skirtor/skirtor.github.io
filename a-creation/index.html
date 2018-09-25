@@ -454,7 +454,7 @@
           view.current.duration = view.format(view.current.total||0); 
           view.current.percent = (status.current / view.current.total) * 100;
         };
-        for(var i=0,i<view.items.length; i++){
+        for(var i=0;i<view.items.length; i++){
           var item = view.items[i];
           item.duration = view.format(item.total||0);
         }
