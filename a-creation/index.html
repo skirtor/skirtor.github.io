@@ -451,7 +451,7 @@
           else{
             view.current.total = status.duration||0;
           };
-          view.current.duration = view.format(status.total||0); 
+          view.current.duration = view.format(view.current.total||0); 
           view.current.percent = (status.current / view.current.total) * 100;
         };        
       }(window);
