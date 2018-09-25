@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+    <title></title>
+    <style type="text/css">
+      html{margin:0; padding:0; font-size 16px;}
+      body{
+        margin:0; 
+        padding:32px;
+        font-family: verdana, "Microsoft Yahei";
+      }
+      em {
+        font-style: normal;
+      }
+      p {
+        margin:0;
+        padding:0;
+        line-height: 1.2;
+        display: block;
+      }
+      .box {
+        cursor: pointer;
+        margin: 4px auto;
+        border: solid 1px #EAEAEA;
+        background-color: #FAFAFA;
+        padding: 16px 16px 16px 88px;
+        overflow: hidden;
+      }
+      
+      .box .icon {
+        width: 48px;
+        height: 48px;
+        margin: 8px 0 0 -64px;
+        display:block;
+        float: left;
+        border: none;
+      }
+      .box .bar {
+        position: relative;
+        margin: 4px 0;
+        overflow: hidden;
+        background-color: #DADADA;
+      }
+      .box .indicator{
+        width: 0;
+        height: 3px;
+        background-color: #6ECA6D;
+        transition: all 0.3s ease-out;
+      }
+      .small {
+        color: gray;
+        font-size: 0.8em;
+      }
+
+    </style>
+    <script type="text/javascript" src="/woo/common/o-muen.js"></script>
+    <script type="text/javascript" src="/woo/common/vue/vue-min-2.js"></script>
+    <script type="text/javascript" src="./audio.js"></script>
+  </head>
+  <body>
+    <div id="view">
+      <div class="box" v-for="item in items" v-on:click="click(item)">
+        <img class="icon" v-bind:src="item.playing?'./img/audio.gif':'./img/audio.png'" alt="" />
+        <p>{{item.title}}</p>
+        <p class="small">{{item.author}}</p>
+        <div class="bar">
+          <div class="indicator" v-bind:style="{width: item.percent + '%'}"></div>
+        </div>
+        <div>
+          <em class="small" style="float:left;">{{item.current}}</em>
+          <em class="small" style="float:right;">{{item.duration}}</em>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      -function(w){
+        var ajax = w.Modules.load("ajax");
+        var audio = w.Audio();
+        var view = new Vue({
+          el:"#view",
+          data: {
+            current: null,
+            items:[
+              { 
+                title:"01. 为了他的荣耀", 
+                author:"主题诗歌",
+                url:"./tracks/01.mp3", 
+                percent: 0,
+                total:100,
+                duration: "--:--",
+                current: "00:00",
+                playing:false
+              },
+              { 
+                title:"02. 上帝创造人", 
+                author:"第一课",
+                url:"./tracks/02.mp3", 
+                percent: 0,
+                total:100,
+                duration: "--:--",
+                current: "00:00",
+                playing:false
+              },
+              { 
+                title:"03. 按上帝的形象被造", 
+                author:"第一课",
+                url:"./tracks/03.mp3", 
+                percent: 0,
+                total:100,
+                duration: "--:--",
+                current: "00:00",
+                playing:false
+              },
+              { 
+                title:"04. 万物藉他而造", 
+                author:"第二课",
+                url:"./tracks/04.mp3", 
+                percent: 0,
+                total:100,
+                duration: "--:--",
+                current: "00:00",
+                playing:false
+              },
+              { 
+                title:"05. 赞美万物的创造主", 
+                author:"第二课",
+                url:"./tracks/05.mp3", 
+                percent: 0,
+                total:100,
+                duration: "--:--",
+                current: "00:00",
+                playing:false
+              },
+              { 
+                title:"06. 一切要为荣耀上帝而行", 
+                author:"第三课",
+                url:"./tracks/06.mp3", 
+                percent: 0,
+                total:100,
+                duration: "--:--",
+                current: "00:00",
+                playing:false
+              },
+              { 
+                title:"07. 愿你荣耀", 
+                author:"第三课",
+                url:"./tracks/07.mp3", 
+                percent: 0,
+                total:100,
+                duration: "--:--",
+                current: "00:00",
+                playing:false
+              },
+              { 
+                title:"08. 你若爱我", 
+                author:"第四课",
+                url:"./tracks/08.mp3", 
+                percent: 0,
+                total:100,
+                duration: "--:--",
+                current: "00:00",
+                playing:false
+              },
+              { 
+                title:"09. 顺服", 
+                author:"第四课",
+                url:"./tracks/09.mp3", 
+                percent: 0,
+                total:100,
+                duration: "--:--",
+                current: "00:00",
+                playing:false
+              },
+              { 
+                title:"10. 要将一切忧虑卸给他", 
+                author:"第五课",
+                url:"./tracks/10.mp3", 
+                percent: 0,
+                total:100,
+                duration: "--:--",
+                current: "00:00",
+                playing:false
+              },
+              { 
+                title:"11. 我是个非常特别的人", 
+                author:"第五课",
+                url:"./tracks/11.mp3", 
+                percent: 0,
+                total:100,
+                duration: "--:--",
+                current: "00:00",
+                playing:false
+              },
+              { 
+                title:"12. For His Own Glory", 
+                author:"Theme Song",
+                url:"./tracks/12.mp3", 
+                percent: 0,
+                total:100,
+                duration: "--:--",
+                current: "00:00",
+                playing:false
+              },
+              { 
+                title:"13. God Created Man", 
+                author:"Lesson 1",
+                url:"./tracks/13.mp3", 
+                percent: 0,
+                total:100,
+                duration: "--:--",
+                current: "00:00",
+                playing:false
+              },
+              { 
+                title:"14. Made In the Image Of God", 
+                author:"Lesson 1",
+                url:"./tracks/14.mp3", 
+                percent: 0,
+                total:100,
+                duration: "--:--",
+                current: "00:00",
+                playing:false
+              },
+              { 
+                title:"15. Through Him All Things Were Made", 
+                author:"Lesson 2",
+                url:"./tracks/15.mp3", 
+                percent: 0,
+                total:100,
+                duration: "--:--",
+                current: "00:00",
+                playing:false
+              },
+              { 
+                title:"16. Praise the God of All Creation", 
+                author:"Lesson 2",
+                url:"./tracks/16.mp3", 
+                percent: 0,
+                total:100,
+                duration: "--:--",
+                current: "00:00",
+                playing:false
+              },
+              { 
+                title:"17. Do It All For the Glory of God", 
+                author:"Lesson 3",
+                url:"./tracks/17.mp3", 
+                percent: 0,
+                total:100,
+                duration: "--:--",
+                current: "00:00",
+                playing:false
+              },
+              { 
+                title:"18. Be Glorified", 
+                author:"Lesson 3",
+                url:"./tracks/18.mp3", 
+                percent: 0,
+                total:100,
+                duration: "--:--",
+                current: "00:00",
+                playing:false
+              },
+              { 
+                title:"19. If You Love Me", 
+                author:"Lesson 4",
+                url:"./tracks/19.mp3", 
+                percent: 0,
+                total:100,
+                duration: "--:--",
+                current: "00:00",
+                playing:false
+              },
+              { 
+                title:"20. Obedience", 
+                author:"Lesson 4",
+                url:"./tracks/20.mp3", 
+                percent: 0,
+                total:100,
+                duration: "--:--",
+                current: "00:00",
+                playing:false
+              },
+              { 
+                title:"21. Cast All Your Anxiety on Him", 
+                author:"Lesson 5",
+                url:"./tracks/21.mp3", 
+                percent: 0,
+                total:100,
+                duration: "--:--",
+                current: "00:00",
+                playing:false
+              },
+              { 
+                title:"22. I'm a Very Special Person", 
+                author:"Lesson 5",
+                url:"./tracks/22.mp3", 
+                percent: 0,
+                total:100,
+                duration: "--:--",
+                current: "00:00",
+                playing:false
+              },
+              { 
+                title:"23. 为了他的荣耀（伴奏）", 
+                author:"For His Own Glory",
+                url:"./tracks/23.mp3", 
+                percent: 0,
+                total:100,
+                duration: "--:--",
+                current: "00:00",
+                playing:false
+              },
+              { 
+                title:"24. 上帝创造人（伴奏）", 
+                author:"God Created Man",
+                url:"./tracks/24.mp3", 
+                percent: 0,
+                total:100,
+                duration: "--:--",
+                current: "00:00",
+                playing:false
+              },
+              { 
+                title:"25. 按上帝的形象被造（伴奏）", 
+                author:"Made in the Image of God",
+                url:"./tracks/25.mp3", 
+                percent: 0,
+                total:100,
+                duration: "--:--",
+                current: "00:00",
+                playing:false
+              },
+              { 
+                title:"26. 万物藉他而造（伴奏）", 
+                author:"Through Him All Things Were Made",
+                url:"./tracks/26.mp3", 
+                percent: 0,
+                total:100,
+                duration: "--:--",
+                current: "00:00",
+                playing:false
+              },
+              { 
+                title:"27. 赞美万物的创造主（伴奏）", 
+                author:"Praise the God of All Things Were Made",
+                url:"./tracks/27.mp3", 
+                percent: 0,
+                total:100,
+                duration: "--:--",
+                current: "00:00",
+                playing:false
+              },
+              { 
+                title:"28. 一切为荣耀上帝而行（伴奏）", 
+                author:"Do It All For the Glory of God",
+                url:"./tracks/28.mp3", 
+                percent: 0,
+                total:100,
+                duration: "--:--",
+                current: "00:00",
+                playing:false
+              },
+              { 
+                title:"29. 愿你荣耀（伴奏）", 
+                author:"Be Glorified",
+                url:"./tracks/29.mp3", 
+                percent: 0,
+                total:100,
+                duration: "--:--",
+                current: "00:00",
+                playing:false
+              },
+              { 
+                title:"30. 你若爱我（伴奏）", 
+                author:"If You Love Me",
+                url:"./tracks/30.mp3", 
+                percent: 0,
+                total:100,
+                duration: "--:--",
+                current: "00:00",
+                playing:false
+              },
+              { 
+                title:"31. 顺服（伴奏）", 
+                author:"Obedience",
+                url:"./tracks/31.mp3", 
+                percent: 0,
+                total:100,
+                duration: "--:--",
+                current: "00:00",
+                playing:false
+              },
+              { 
+                title:"32. 要将一切忧虑卸给他（伴奏）", 
+                author:"Cast All Your Anxiety on Him",
+                url:"./tracks/32.mp3", 
+                percent: 0,
+                total:100,
+                duration: "--:--",
+                current: "00:00",
+                playing:false
+              },
+              { 
+                title:"33. 我是个非常特别的人（伴奏）", 
+                author:"I'm a Very Special Person",
+                url:"./tracks/33.mp3", 
+                percent: 0,
+                total:100,
+                duration: "--:--",
+                current: "00:00",
+                playing:false
+              }
+            ],
+          },
+          methods:{
+            click: function(item){
+              if(this.current==item){
+                audio.playing?audio.pause():audio.play();
+              }
+              else {
+                if(this.current){
+                  this.current.playing = false;
+                  this.current.percent = 0;
+                  this.current.current = this.format(0);
+                }
+                this.current = item;
+                audio.load(item.url);
+                audio.play();
+              }
+            },
+            format: function(v){
+              var ret = [];
+              ret.push( ('00' + Math.floor(v/60)).slice(-2) );
+              ret.push( ('00' + Math.floor(v%60)).slice(-2) );
+              return ret.join(':');
+            }
+          }
+        });
+        audio.onplay = function(){ view.current.playing = true; };
+        audio.onpause = function () { view.current.playing = false; };
+        audio.onended = function () {  view.current.playing = false; };
+        audio.onupdate = function () { 
+          var status = this.status();
+          view.current.current = view.format(status.current||0);
+          if(!isFinite(status.duration)){
+            status.duration = 0;
+          }
+          else{
+            view.current.total = status.duration||0;
+            view.current.duration = view.format(status.duration||0); 
+          };
+          view.current.percent = (status.current / view.current.total) * 100;
+
+        };        
+      }(window);
+    </script>
+  </body>
+</html>
+  
