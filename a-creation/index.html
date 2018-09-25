@@ -451,6 +451,7 @@
           else{
             view.current.total = status.duration||0;
             view.current.duration = view.format(status.duration||0); 
+            console.log("%s, total=%s",view.current.title,view.current.total);
           };
           view.current.percent = (status.current / view.current.total) * 100;
 
