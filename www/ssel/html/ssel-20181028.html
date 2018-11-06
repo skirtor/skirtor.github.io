@@ -61,7 +61,7 @@
   <body>
     <div id="view">
       <div class="box" v-for="item in items" v-on:click="click(item)">
-        <img class="icon" v-bind:src="item.playing?'./img/audio.gif':'./img/audio.png'" alt="" />
+        <img class="icon" v-bind:src="item.playing?'../img/audio.gif':'../img/audio.png'" alt="" />
         <p>{{item.title}}</p>
         <p class="small">{{item.author}}</p>
         <div class="bar">
