@@ -87,7 +87,7 @@
                 author:"林伟清牧师",
                 url:"../audio/ssel-20181230.mp3", 
                 percent: 0,
-                total:0,
+                total:2979.918333,
                 duration: "--:--",
                 current: "00:00",
                 playing:false
@@ -130,7 +130,7 @@
           else{
             view.current.total = status.duration||0;
           };
-          console.log(view.current.total);
+          //console.log(view.current.total);
           view.current.duration = view.format(view.current.total||0); 
           view.current.percent = (status.current / view.current.total) * 100;
         };
