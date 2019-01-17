@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+    <title></title>
+    <style type="text/css">
+      html{margin:0; padding:0; font-size 16px;}
+      body{
+        margin:0; 
+        padding:32px;
+        font-family: verdana, "Microsoft Yahei";
+      }
+      em {
+        font-style: normal;
+      }
+      p {
+        margin:0;
+        padding:0;
+        line-height: 1.2;
+        display: block;
+      }
+      .box {
+        cursor: pointer;
+        margin: 4px auto;
+        border: solid 1px #EAEAEA;
+        background-color: #FAFAFA;
+        padding: 16px 16px 16px 88px;
+        overflow: hidden;
+      }
+      
+      .box .icon {
+        width: 48px;
+        height: 48px;
+        margin: 8px 0 0 -64px;
+        display:block;
+        float: left;
+        border: none;
+      }
+      .box .bar {
+        position: relative;
+        margin: 4px 0;
+        overflow: hidden;
+        background-color: #DADADA;
+      }
+      .box .indicator{
+        width: 0;
+        height: 3px;
+        background-color: #6ECA6D;
+        transition: all 0.3s ease-out;
+      }
+      .small {
+        color: gray;
+        font-size: 0.8em;
+      }
+    </style>
+    <script type="text/javascript" src="/common/o-muen.js"></script>
+    <script type="text/javascript" src="/common/vue-min-2.js"></script>
+    <script type="text/javascript" src="../audio.js"></script>
+  </head>
+  <body>
+    <div id="view">
+      <div class="box" v-for="item in items" v-on:click="click(item)">
+        <img class="icon" v-bind:src="item.playing?'../img/audio.gif':'../img/audio.png'" alt="" />
+        <p>{{item.title}}</p>
+        <p class="small">{{item.author}}</p>
+        <div class="bar">
+          <div class="indicator" v-bind:style="{width: item.percent + '%'}"></div>
+        </div>
+        <div>
+          <em class="small" style="float:left;">{{item.current}}</em>
+          <em class="small" style="float:right;">{{item.duration}}</em>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      -function(w){
+        var ajax = w.Modules.load("ajax");
+        var audio = w.Audio();
+        var view = new Vue({
+          el:"#view",
+          data: {
+            current: null,
+            items:[
+              { 
+                title:"建立基督的身体", 
+                author:"林伟清牧师",
+                url:"../audio/ssel-20190113.mp3", 
+                percent: 0,
+                total:2979.918333,
+                duration: "--:--",
+                current: "00:00",
+                playing:false
+              }
+            ],
+          },
+          methods:{
+            click: function(item){
+              if(this.current==item){
+                audio.playing?audio.pause():audio.play();
+              }
+              else {
+                if(this.current){
+                  this.current.playing = false;
+                  this.current.percent = 0;
+                  this.current.current = this.format(0);
+                }
+                this.current = item;
+                audio.load(item.url);
+                audio.play();
+              }
+            },
+            format: function(v){
+              var ret = [];
+              ret.push( ('00' + Math.floor(v/60)).slice(-2) );
+              ret.push( ('00' + Math.floor(v%60)).slice(-2) );
+              return ret.join(':');
+            }
+          }
+        });
+        audio.onplay = function(){ view.current.playing = true; };
+        audio.onpause = function () { view.current.playing = false; };
+        audio.onended = function () {  view.current.playing = false; };
+        audio.onupdate = function () { 
+          var status = this.status();
+          view.current.current = view.format(status.current||0);
+          if(!isFinite(status.duration)){
+            status.duration = 0;
+          }
+          else{
+            view.current.total = status.duration||0;
+          };
+          console.log(view.current.total);
+          view.current.duration = view.format(view.current.total||0); 
+          view.current.percent = (status.current / view.current.total) * 100;
+        };
+        for(var i=0;i<view.items.length; i++){
+          var item = view.items[i];
+          item.duration = view.format(item.total||0);
+        }
+      }(window);
+    </script>
+  </body>
+</html>
