@@ -109,7 +109,7 @@
           }
         };
         var vx={};
-        vx.rowid="5807711000623586965730165697698262555123";
+        vx.rowid="";
         vx.encode = function(s){
           return s.replace(/\r/g, "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
         };
@@ -176,18 +176,7 @@
             window.onscroll = fn.throttle(function(){ me.run(); }, 500);
             this.run();
           }
-        }
-        vx.load = function(){
-          var me = this;
-
-          if(this.rowid=="0") {$("#content").html("&#26080;&#25928;&#30340;&#24207;&#21015;&#21495;"); return;}
-          var text = base64.decode($("#data").text() );
-          var html = marked.parse(me.encode(text));
-          $("#content").html(html.replace(/<img src=/g, "<img data-src="));
-          me.lazyload.load("#content");
-        };
-        vx.load();
-        
+        };        
         vx.load = function(host){
           var me = this;
           var base64 = window.Modules.load("base64");
