@@ -141,7 +141,7 @@
                   this.onclick = function(){  
                     this.src = src;
                   };
-                  this.src="/woo/common/img/picture.png";
+                  this.src="/img/opacity.png";
                 }
                 img.src = img.status.src;
               }
@@ -164,11 +164,11 @@
             list.reverse();
             for(var i=0; i<list.length; i++){ 
               var img = list[i];
-              var src =  "https://" + host + (img.attributes["data-src"]||{name:"",value:"/woo/common/img/opacity.png"});
-              img.src= "https://" + host + "/woo/common/img/opacity.png";
+              var src =  "https://" + host + (img.attributes["data-src"]||{name:"",value:"/img/opacity.png"});
+              img.src= "/img/opacity.png";
               img.style.width="100%";
               img.style.height = "auto";
-              img.style.background = "silver url(https://" + host + "/woo/common/img/loading.svg) no-repeat center center";
+              img.style.background = "silver url(/svg/loading.svg) no-repeat center center";
               img.style.backgroundSize = "3rem 3rem";
               img.status={loaded:false, src: src.value};
               me.items.push(img);
