@@ -11,7 +11,7 @@
     <title>Radio - bimwook.com</title>
     <style type="text/css">
       html {margin:0; padding:0; font-size: 16px; background: gray;}
-      body {margin:0 auto; padding:0; width: 100%; max-width: 980px; font-size: 1em; line-height: 1.8; font-family: "Microsoft Yahei", "微软雅黑", verdana; }
+      body {margin:0 auto; padding:0; width: 100%; max-width: 980px; font-size: 1em; line-height: 1.8; font-family: verdana, "Microsoft Yahei"; }
       img  {max-width: 100%; background-color: #EAEAEA; display:block; margin: 0 auto;}
       h1,h2,h3,h4,h5,h6 { text-indent: 16px; padding:0; margin: 0.5em auto; line-height: 1.2; }
       h1 {font-size: 1.8em;}
@@ -109,7 +109,7 @@
           }
         };
         var vx={};
-        vx.rowid="5807711000623586965730165697698262555123";
+        vx.rowid="";
         vx.encode = function(s){
           return s.replace(/\r/g, "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
         };
@@ -141,7 +141,7 @@
                   this.onclick = function(){  
                     this.src = src;
                   };
-                  this.src="/woo/common/img/picture.png";
+                  this.src="/img/opacity.png";
                 }
                 img.src = img.status.src;
               }
@@ -154,7 +154,7 @@
               window.onscroll = null;
             }
           },
-          load: function(id){
+          load: function(id, host){
             var me = this;
             var nodes = $(id).dom.getElementsByTagName("img");
             var list = [];
@@ -164,11 +164,11 @@
             list.reverse();
             for(var i=0; i<list.length; i++){ 
               var img = list[i];
-              var src = img.attributes["data-src"]||{name:"",value:"/woo/common/img/opacity.png"};
-              img.src="/woo/common/img/opacity.png";
+              var src = img.attributes["data-src"]||{name:"",value:"/img/opacity.png"};
+              img.src= "/img/opacity.png";
               img.style.width="100%";
               img.style.height = "auto";
-              img.style.background = "silver url(/woo/common/img/loading.svg) no-repeat center center";
+              img.style.background = "silver url(/svg/loading.svg) no-repeat center center";
               img.style.backgroundSize = "3rem 3rem";
               img.status={loaded:false, src: src.value};
               me.items.push(img);
@@ -176,18 +176,7 @@
             window.onscroll = fn.throttle(function(){ me.run(); }, 500);
             this.run();
           }
-        }
-        vx.load = function(){
-          var me = this;
-
-          if(this.rowid=="0") {$("#content").html("&#26080;&#25928;&#30340;&#24207;&#21015;&#21495;"); return;}
-          var text = base64.decode($("#data").text() );
-          var html = marked.parse(me.encode(text));
-          $("#content").html(html.replace(/<img src=/g, "<img data-src="));
-          me.lazyload.load("#content");
-        };
-        vx.load();
-        
+        };        
         vx.load = function(host){
           var me = this;
           var base64 = window.Modules.load("base64");
@@ -207,9 +196,9 @@
               if(x==="/woo/bin/radio/random.do"){
                 history.replaceState("", "", "?" + (o.text.match(/name="woo:rowid" content="(\d{48})"/)||["",""])[1]);              
               }
-              $("#content").html(html.replace(/<img src=/g, "<img data-src="));
-              me.lazyload.load("#content");
-              document.title = me.title(text);
+              $("#content").html(html.replace(/<img src="/g, '<img data-src="https://' + host));
+              me.lazyload.load("#content", host);
+              //document.title = me.title(text);
               $("#qr-code").dom.src= "https://" + host + "/woo/bin/barcode/twod.do?barcode=" + location;
               $("#title").text( (o.text.match(/id="created" class="bar">([^<]*)</)||["",""])[1] );
             }
