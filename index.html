@@ -72,119 +72,127 @@
     </div>
     <script type="text/javascript">
       -function(){
-        var ajax = window.Modules.load("ajax");
-        var marked = window.Modules.load("marked");
-        var base64 = window.Modules.load("base64");
-        var main = {};
-        main.rowid="0";
-        main.title = function(data){
-          var regex = /^(#{1,6}) {0,}([^\n]+?) *#* *(?:\n+|$)/;
-          var t="无题";
-          var min = 7;
-          var lines = (data||"").split("\n");
-          for(var i=0; i<lines.length; i++){
-            var line = (lines[i]||"").replace(/(^\s*)|(\s*$)/g, "");
-            var mcs = line.match(regex);
-            if(!mcs) continue;
-            var l = mcs[1].length;
-            if(l<min){ t = mcs[2]; min = l;}
-          }
-          return t;
-        };
-        main.encode = function(s){
-          return s.replace(/\r/g, "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
-        };
-        main.container = document.getElementById("content");
-        main.lazyload = {};
-        main.lazyload.locked = false;
-        main.lazyload.items = [];
-        main.lazyload.clear = function(){
-          this.items = [];
-          this.locked = false;
-        };
-        main.lazyload.onscroll = function(){
-          var me = this;
-          var top = (document.documentElement.scrollTop || document.body.scrollTop);
-          var line = top + document.documentElement.clientHeight;
-          if (me.locked) return;
-          me.locked = true;
-          var rest = [];
-          while(me.items.length>0){
-            var img = me.items.pop();
-            var t = img.offsetTop;
-            if((t>=top) && (t<=line)) {
-              img.onload = function(){
-                this.style.cursor = "pointer";
-                this.style.width="auto";
-                this.style.background = "#EAEAEA";
-                this.onclick = function(){  
-                  window.open(this.src);
-                };
-              };
-              img.onerror = function(){
-                this.style.cursor = "pointer";
-                var src= this.src;
-                this.onclick = function(){  
-                  this.src = src;
-                };
-                this.src="/img/picture.png";
+        var $ = function(id){
+          return {
+            dom: document.querySelector(id),
+            html: function(data){
+              var me = this;
+              if(typeof(data)=="string"){
+                me.dom.innerHTML = data;
               }
-              img.src = img.status.src;
+              else {
+                return me.dom.innerHTML;
+              }
+            },
+            text: function(data){
+              var me = this;
+              if(typeof(data)=="string"){
+                me.dom.innerText = data;
+              }
+              else {
+                return me.dom.innerText;
+              }
+            },
+            append: function(node){
+              this.dom.appendChild(node);
             }
-            else{
-              rest.push(img);
+          }
+        };
+        var fn={};
+        fn.throttle = function(fn, delay){
+          var me = this;
+          var timer=null;
+          return function(){
+            var context=this, args=arguments;
+            window.clearTimeout(timer);
+            timer = window.setTimeout(function(){ fn.apply(me, args); },delay);
+          }
+        };
+        var vx={};
+        vx.rowid="5807711000623586965730165697698262555123";
+        vx.encode = function(s){
+          return s.replace(/\r/g, "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+        };
+        vx.lazyload = {
+          items: [], 
+          clear: function(){
+            items = [];
+          },
+          run: function(){
+            var me = this;
+            var top = (document.documentElement.scrollTop || document.body.scrollTop);
+            var line = top + document.documentElement.clientHeight;
+            var rest = [];
+            while(me.items.length>0){
+              var img = me.items.pop();
+              var t = img.offsetTop;
+              if((t>=top) && (t<=line)) {
+                img.onload = function(){
+                  this.style.cursor = "pointer";
+                  this.style.width="auto";
+                  this.style.background = "#EAEAEA";
+                  this.onclick = function(){  
+                    window.open(this.src);
+                  };
+                };
+                img.onerror = function(){
+                  this.style.cursor = "pointer";
+                  var src= this.src;
+                  this.onclick = function(){  
+                    this.src = src;
+                  };
+                  this.src="/woo/common/img/picture.png";
+                }
+                img.src = img.status.src;
+              }
+              else{
+                rest.push(img);
+              }
             }
+            me.items = rest.reverse();
+            if(me.items.length==0) {
+              window.onscroll = null;
+            }
+          },
+          load: function(id){
+            var me = this;
+            var nodes = $(id).dom.getElementsByTagName("img");
+            var list = [];
+            for(var i=0; i<nodes.length; i++){ 
+              list.push(nodes[i]);
+            }
+            list.reverse();
+            for(var i=0; i<list.length; i++){ 
+              var img = list[i];
+              var src = img.attributes["data-src"]||{name:"",value:"/woo/common/img/opacity.png"};
+              img.src="/woo/common/img/opacity.png";
+              img.style.width="100%";
+              img.style.height = "auto";
+              img.style.background = "silver url(/woo/common/img/loading.svg) no-repeat center center";
+              img.style.backgroundSize = "3rem 3rem";
+              img.status={loaded:false, src: src.value};
+              me.items.push(img);
+            }
+            window.onscroll = fn.throttle(function(){ me.run(); }, 500);
+            this.run();
           }
-          me.items = rest.reverse();
-          if(me.items.length==0) {
-            window.onscroll = null;
-          }
-          me.locked = false;
-        };
-        main.lazyload.reset = function(id){
+        }
+        vx.load = function(){
           var me = this;
-          var o = (typeof id=="string")?document.getElementById(id) : id;
-          if(!o) return;
-          var list = o.getElementsByTagName("img");
-          for(var i=0; i<list.length; i++){ 
-            var img = list[i];
-            img.src="/woo/common/img/opacity.png";
-            img.style.width="100%";
-            img.style.height = "auto";
-            img.style.background = "silver url(/img/trans.png) repeat";
-          }
+
+          if(this.rowid=="0") {$("#content").html("&#26080;&#25928;&#30340;&#24207;&#21015;&#21495;"); return;}
+          var text = base64.decode($("#data").text() );
+          var html = marked.parse(me.encode(text));
+          $("#content").html(html.replace(/<img src=/g, "<img data-src="));
+          me.lazyload.load("#content");
         };
-        main.lazyload.load = function(id){
+        vx.load();
+        
+        vx.load = function(host){
           var me = this;
-          var o = (typeof id=="string")?document.getElementById(id) : id;
-          if(!o) return;
-          var imglist = o.getElementsByTagName("img");
-          var temp = [];
-          for(var i=0; i<imglist.length; i++){ 
-            temp.push(imglist[i]);
-          }
-          imglist = null;
-          temp.reverse();
-          for(var i=0; i<temp.length; i++){ 
-            var img = temp[i];
-            var src = img.attributes["data-src"]||{name:"",value:"/img/opacity.png"};
-            img.src="/woo/common/img/opacity.png";
-            img.style.width="100%";
-            img.style.height = "auto";
-            img.style.background = "silver url(/img/trans.png) repeat";
-            img.status={loaded:false, src: src.value};
-            me.items.push(img);
-          }
-          temp = null;
-          if(window.onscroll==null){
-            window.onscroll = function(){
-              me.onscroll();
-            };
-          };
-          this.onscroll();
-        };
-        main.load = function(host){
-          var me = this;
+          var base64 = window.Modules.load("base64");
+          var marked = window.Modules.load("marked"); 
+          var ajax = window.Modules.load("ajax");  
           var rowid = (window.location.search.match(/\?(\d{48})/)||["","0"])[1];
           var x = "/woo/bin/radio/view.html?rowid=" + rowid;
           if(rowid=="0") {
@@ -195,21 +203,20 @@
             if(mc){
               var text = base64.decode(mc[1]);
               var html = marked.parse(me.encode(text));
+              var location = window.encodeURIComponent(window.location.href);
               if(x==="/woo/bin/radio/random.do"){
                 history.replaceState("", "", "?" + (o.text.match(/name="woo:rowid" content="(\d{48})"/)||["",""])[1]);              
               }
-              var location = window.encodeURIComponent(window.location.href);
-              var qr = "https://" + host + "/woo/bin/barcode/twod.do?barcode=" + location;
-              me.container.innerHTML = html.replace(/<img src="/g, '<img data-src="https://' + host);
-              me.lazyload.load(me.container);
+              $("#content").html(html.replace(/<img src=/g, "<img data-src="));
+              me.lazyload.load("#content");
               document.title = me.title(text);
-              document.getElementById("qr-code").src= qr;
-              document.getElementById("title").innerText = (o.text.match(/id="created" class="bar">([^<]*)</)||["",""])[1];
+              $("#qr-code").dom.src= "https://" + host + "/woo/bin/barcode/twod.do?barcode=" + location;
+              $("#title").text( (o.text.match(/id="created" class="bar">([^<]*)</)||["",""])[1] );
             }
           });
         };
-        main.load("www.bimwook.com:11180");
-        main.load("local.bimwook.com");
+        vx.load("www.bimwook.com:11180");
+        vx.load("local.bimwook.com");
       }();
     </script>
   </body>
