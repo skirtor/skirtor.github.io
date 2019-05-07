@@ -198,7 +198,7 @@
               }
               $("#content").html(html.replace(/<img src=/g, "<img data-src="));
               me.lazyload.load("#content");
-              document.title = me.title(text);
+              //document.title = me.title(text);
               $("#qr-code").dom.src= "https://" + host + "/woo/bin/barcode/twod.do?barcode=" + location;
               $("#title").text( (o.text.match(/id="created" class="bar">([^<]*)</)||["",""])[1] );
             }
