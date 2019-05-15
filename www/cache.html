@@ -198,10 +198,10 @@
         vx.save = function(){
           var me = this;
           var url = this.host + "/woo/bin/cache/save.do?name=" + this.name;
-          var body = "content=" + w.encodeURIComponent(this.content.value);
+          var body = "content=" + win.encodeURIComponent(this.content.value);
           ajax.post(url, body,function(o){
             me.title.html('<em style="color: rgba(20,170,120,1); font-size: 1.2em;">保存成功</em>');
-            w.setTimeout(function(){
+            win.setTimeout(function(){
               me.title.text(me.name);
             },1500);
           });
