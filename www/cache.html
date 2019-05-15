@@ -15,6 +15,7 @@
       html{
         margin:0 auto; 
         padding:0; 
+        font-size: 16px;
         background: gray;
         overflow-x: hidden;
         overflow-y: hidden;
@@ -26,7 +27,7 @@
         text-align: center;
         background: #EAEAEA;
         height: 100%;
-        max-width: 720px;
+        max-width: 48rem;
       }
       a {cursor: pointer; text-decoration: none; color:#006291;}
       a:link {color:#006291;}
@@ -39,77 +40,84 @@
         cursor: pointer;
         vertical-align:middle;
         display: inline-block;
-        height: 32px;
+        height: 2rem;
         text-align: center;
-        font: bold 14px/32px verdana;
+        font-weight: bold;
+        font-size: 0.875em;
+        font-family: verdana;
+        line-height: 2rem;
         background: #008080;      
+      }
+      
+      em {
+        font-style: normal;
       }
       
       .main{
         position: relative;
         margin: 0px auto;
-        padding: 36px 0 0 0;
+        padding: 3rem 0 0 0;
         text-align: center;
         background: white;
-        font: normal 14px/32px verdana;
         overflow: hidden;
         width:100%;
         height: 100%;
       }
       
       .header{
+        color: white;
         position: relative;
-        margin-top: -36px;
-        padding: 0 36px;
-        height: 36px;
-        font: normal 14px/36px verdana;
-        background-color: #EEEEEE;
+        margin-top: -3rem;
+        padding: 0 3rem;
+        height: 3rem;
+        background-color: #646464;
         text-align: left;
         overflow: hidden;
-        list-style: none;
-        border-bottom: solid 1px #DDDDDD;
       }
       
       .header .btl{
         display: inline-block;
-        margin-left: -36px;
-        width: 36px;
-        height: 36px;
+        margin-left: -3rem;
+        width: 3rem;
+        height: 3rem;
         background-color: transparent;
         background-repeat: no-repeat;
-        background-position: 2px 2px;  
-        background-size:32px 32px;
-        background-image: url(/woo/common/img/back.png);
+        background-position: center center;  
+        background-size: 2rem 2rem;
+        background-image: url(/svg/back.svg?color=220-220-220-220);
       }
 
       .header .title{
         cursor: default;
         width: 100%;
         display: inline-block;
-        font: normal 14px/36px verdana;
         text-align: center;
-        background-color: #EEEEEE;
+        font-weight: normal;
+        font-size: 0.875em;
+        white-space:nowrap; 
+        overflow:hidden; 
+        text-overflow:ellipsis;        
+        font-family: verdana, "Microsoft Yahei";
+        line-height: 3rem;
+        user-select: none;
       }
       
       .header .btr{
-        display: block;
-        margin-right: -36px;
-        width: 36px;
-        height: 36px;
-        background-color: transparent;
-        background-repeat: no-repeat;
-        background-position: 8px 8px;  
-        background-size:24px 24px;
-        background-image: url(/woo/common/img/check.png);
+        display: inline-block;
+        margin-right: -3rem;
+        width: 3rem;
+        height: 3rem;
+        padding: 0.3rem;
       }
       
       .header li{
         display: inline-block;
         float: left;
+        transition: all 0.3s ease-out;
       }
       
       .header li:active{
-        background-color: white;
+        background-color: rgba(0,0,0,0.12);
       }
       
       #content{
@@ -118,12 +126,12 @@
         border: none;
         box-sizing: border-box;
         padding: 8px;
-        font: normal 12pt/1.5 verdana;
+        font: normal 1em/1.618 verdana;
+        -webkit-overflow-scrolling: touch;
       }
       
     </style>
-    <script type="text/javascript" src="https://www.bimwook.com:11180/woo/common/muen/muen.js"></script>
-    <script type="text/javascript" src="https://www.bimwook.com:11180/woo/common/ajax.js"></script>   
+    <script type="text/javascript" src="/common/o-muen.js"></script>
   </head>
   <body>
     <div class="main">
@@ -135,45 +143,87 @@
       <textarea id="content"></textarea>    
     </div>
     <script type="text/javascript">
-      muen.run(function(){
-      
-        var ui = {};
-        ui.querystring = window.location.search.match(/\?name=(.+)/) || window.location.pathname.match(/^\/cache\/(.+)/);
-        if(!ui.querystring){
-          window.location = "?name=www";
-        }
-        ui.name = ui.querystring ? ui.querystring[1]: "www";
-        ui.submit = muen.dom("submit");
-        ui.bar = muen.dom("bar");
-        ui.content = muen.dom("content");
-        ui.rndid = function(){
+      -function(win, host){
+        var $ = function(id){
+          return {
+            dom: document.querySelector(id),
+            html: function(data){
+              var me = this;
+              if(typeof(data)=="string"){
+                me.dom.innerHTML = data;
+              }
+              else {
+                return me.dom.innerHTML;
+              }
+            },
+            text: function(data){
+              var me = this;
+              if(typeof(data)=="string"){
+                me.dom.innerText = data;
+              }
+              else {
+                return me.dom.innerText;
+              }
+            },
+            append: function(node){
+              this.dom.appendChild(node);
+            }
+          }
+        };
+
+        var ajax = window.modules["ajax"];
+        var vx = {};
+        vx.host = host;
+        vx.name = "www";
+        vx.title = $("#title");
+        vx.content = $("#content");
+        vx.rndid = function(){
           return (new Date()).getTime();
         };
         
-        ui.load = function(){
+        vx.load = function(){
           var me = this;
-          var url = "https://www.bimwook.com:11180/woo/bin/cache/load.do?name=" + this.name + "&rndid=" + me.rndid();
-          bar.html(this.name);
+          var url = this.host + "/woo/bin/cache/load.do?name=" + this.name + "&rndid=" + me.rndid();
+          me.title.text(win.decodeURIComponent(this.name));
           me.content.value = "Loading...";
-          ajax.post(url, "",function(data){
-            me.content.value = data;
+          ajax.get(url, function(o){
+            me.content.dom.value = o.text;
           });
         };
         
-        ui.submit.on("click", function(){
-          var me = ui;
-          var url = "https://www.bimwook.com:11180/woo/bin/cache/save.do?name=" + me.name;
-          var body = "content=" + muen.encoder.url(me.content.value);
-          ajax.post(url, body,function(data){
-            ui.bar.html("保存成功");
-            window.setTimeout(function(){
-              ui.bar.html(ui.name);
+        vx.save = function(){
+          var me = this;
+          var url = this.host + "/woo/bin/cache/save.do?name=" + this.name;
+          var body = "content=" + w.encodeURIComponent(this.content.value);
+          ajax.post(url, body,function(o){
+            me.title.html('<em style="color: rgba(20,170,120,1); font-size: 1.2em;">保存成功</em>');
+            w.setTimeout(function(){
+              me.title.text(me.name);
             },1500);
           });
-        });
+        };
         
-        ui.load();
-      });
+        $("#submit").dom.onclick = function(){
+          vx.save();
+        };
+        
+        var name = win.location.search.match(/\?name=([^&]+)/) || win.location.pathname.match(/^\/cache\/(.+)/);
+        if(!name){
+          win.location.search = "?name=www";
+        }
+        else {
+          vx.name = name[1];
+        }
+        var theme = (win.location.search.match(/&theme=([^&]+)/)||["",null])[1];
+        if(theme){
+          var header = $(".header").dom;
+          var checkmark = $("#checkmark").dom;
+          checkmark.setAttribute("fill" , "rgba(80,80,80,0.5)");
+          header.style.color = "#272727";
+          header.style.background = "#FAFAFA";
+        }
+        vx.load();
+      }(window, "https://omuen.com:11180");
     </script>
   </body>
 </html>
