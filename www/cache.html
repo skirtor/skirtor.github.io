@@ -189,7 +189,7 @@
           var me = this;
           var url = this.host + "/woo/bin/cache/load.do?name=" + this.name + "&rndid=" + me.rndid();
           me.title.text(win.decodeURIComponent(this.name));
-          me.content.value = "Loading...";
+          me.content.dom.value = "Loading...";
           ajax.get(url, function(o){
             me.content.dom.value = o.text;
           });
@@ -198,8 +198,8 @@
         vx.save = function(){
           var me = this;
           var url = this.host + "/woo/bin/cache/save.do?name=" + this.name;
-          var body = "content=" + win.encodeURIComponent(this.content.value);
-          ajax.post(url, body,function(o){
+          var body = "content=" + win.encodeURIComponent(this.content.dom.value);
+          ajax.post(url, body, function(o){
             me.title.html('<em style="color: rgba(20,170,120,1); font-size: 1.2em;">保存成功</em>');
             win.setTimeout(function(){
               me.title.text(me.name);
