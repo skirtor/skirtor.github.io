@@ -60,6 +60,10 @@
         border-radius: 5px;
         background-color: #008080;
       }
+      .center {
+        padding: 1em;
+        text-align: center;
+      }
     </style>
     <script type="text/javascript" src="/common/o-muen.js"></script>
     <script type="text/javascript" src="/common/vue-min-2.js"></script>
@@ -79,7 +83,7 @@
           <em class="small" style="float:right;">{{item.duration}}</em>
         </div>
       </div>
-      <div v-show="goon" class="box">
+      <div v-show="goon" class="center">
         <button class="button" v-on:click="play(1)">继续播放</button>
         <button class="button" v-on:click="play(0)">从头播放</button>
       </div>
