@@ -19,6 +19,9 @@
     ret.pause = function () {
       ctl.pause();
     };
+    ret.seek = function(v){
+      ctl.currentTime = v;
+    };
     ret.playing = false;
     ret.status = function () {
       return { current: ctl.currentTime, duration: ctl.duration };
