@@ -53,6 +53,11 @@
         color: gray;
         font-size: 0.8em;
       }
+      .button {
+        padding: 2em 0.5em;
+        border: none;
+        border-radius: 5px;
+      }
     </style>
     <script type="text/javascript" src="/common/o-muen.js"></script>
     <script type="text/javascript" src="/common/vue-min-2.js"></script>
@@ -72,6 +77,10 @@
           <em class="small" style="float:right;">{{item.duration}}</em>
         </div>
       </div>
+      <div v-show="goon" class="box">
+        <button v-on:click="play(1)">继续播放</button>
+        <button v-on:click="play(0)">从头播放</button>
+      </div>
     </div>
     <script type="text/javascript">
       -function(w){
@@ -81,6 +90,7 @@
           el:"#view",
           data: {
             current: null,
+            goon: false,
             items:[
               { 
                 title:"婚姻的奥秘", 
@@ -106,16 +116,8 @@
                   this.current.current = this.format(0);
                 }
                 this.current = item;
-                var lasturl = window.localStorage.getItem("audio.url")||"";
-                var lastv = window.localStorage.getItem("audio.current")||0;
                 audio.load(item.url);
-                if((lasturl==item.url) && (lastv!=0)){
-                  audio.play();
-                  audio.seek(lastv);
-                }
-                else {
-                  audio.play();
-                }
+                audio.play();
                 window.localStorage.setItem("audio.url", item.url);
               }
             },
@@ -124,6 +126,14 @@
               ret.push( ('00' + Math.floor(v/60)).slice(-2) );
               ret.push( ('00' + Math.floor(v%60)).slice(-2) );
               return ret.join(':');
+            },
+            play: function(v){
+              audio.play();
+              if(v>0){
+                var lastv = window.localStorage.getItem("audio.current")||0;
+                audio.play();
+                audio.seek(lastv);
+              }
             }
           }
         });
@@ -152,6 +162,13 @@
           var item = view.items[i];
           item.duration = view.format(item.total||0);
         }
+        var lasturl = window.localStorage.getItem("audio.url")||"";
+        var lastv = window.localStorage.getItem("audio.current")||0;
+        var item = view.items[0];
+        if((lasturl==item.url) && (lastv!=0)){
+          view.goon = true;
+        }  
+        
       }(window);
     </script>
   </body>
