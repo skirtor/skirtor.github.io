@@ -106,8 +106,16 @@
                   this.current.current = this.format(0);
                 }
                 this.current = item;
+                var lasturl = window.localStorage.getItem("audio.url")||"";
+                var lastv = window.localStorage.getItem("audio.current")||0;
                 audio.load(item.url);
-                audio.play();
+                if((lasturl==item.url) && (lastv!=0)){
+                  audio.seek(lastv);
+                }
+                else {
+                  audio.play();
+                }
+                window.localStorage.setItem("audio.url", item.url);
               }
             },
             format: function(v){
@@ -120,7 +128,10 @@
         });
         audio.onplay = function(){ view.current.playing = true; };
         audio.onpause = function () { view.current.playing = false; };
-        audio.onended = function () {  view.current.playing = false; };
+        audio.onended = function () {  
+          view.current.playing = false;
+          window.localStorage.setItem("audio.current", 0);
+        };
         audio.onupdate = function () { 
           var status = this.status();
           view.current.current = view.format(status.current||0);
@@ -131,6 +142,8 @@
             view.current.total = status.duration||0;
           };
           //console.log(view.current.total);
+          
+          window.localStorage.setItem("audio.current", status.current);
           view.current.duration = view.format(view.current.total||0); 
           view.current.percent = (status.current / view.current.total) * 100;
         };
