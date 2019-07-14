@@ -128,12 +128,9 @@
               return ret.join(':');
             },
             play: function(v){
-              var lasturl = window.localStorage.getItem("audio.url")||0;
-              audio.load(lasturl);
-              audio.play();
+              this.click(this.items[0]);
               if(v>0){
                 var lastv = window.localStorage.getItem("audio.current")||0;
-                audio.play();
                 audio.seek(lastv);
               }
               this.goon = false;
