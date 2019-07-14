@@ -110,6 +110,7 @@
                 var lastv = window.localStorage.getItem("audio.current")||0;
                 audio.load(item.url);
                 if((lasturl==item.url) && (lastv!=0)){
+                  audio.play();
                   audio.seek(lastv);
                 }
                 else {
