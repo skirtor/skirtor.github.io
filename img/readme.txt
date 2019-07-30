@@ -1,1 +1,4 @@
-Put pictures here.
+
+  Put pictures here.
+-----------------------------------------------
+  ![avatar](./avatar.svg)
