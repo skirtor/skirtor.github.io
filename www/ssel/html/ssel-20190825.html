@@ -83,6 +83,9 @@
           <em class="small" style="float:right;">{{item.duration}}</em>
         </div>
       </div>
+      <div v-show="!goon" class="center">
+        <button class="button" v-on:click="click(current)">{{current.playing?'暂停':'播放'}}</button>
+      </div>      
       <div v-show="goon" class="center">
         <button class="button" v-on:click="play(1)">继续播放</button>
         <button class="button" v-on:click="play(0)">从头播放</button>
