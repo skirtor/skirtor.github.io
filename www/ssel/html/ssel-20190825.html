@@ -128,6 +128,9 @@
         <button class="button" v-on:click="play(1)">继续播放</button>
         <button class="button" v-on:click="play(0)">从头播放</button>
       </div>
+      <div class="center">
+        <button class="button-normal" v-on:click="download()">音频文件下载</button>
+      </div>      
     </div>
     <script type="text/javascript">
       -function(w){
@@ -169,6 +172,9 @@
             },
             seek: function(v){
               audio.seek(this.position + v);
+            },
+            download: function(){
+              window.open(this.item.url);
             }
           }
         });
