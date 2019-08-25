@@ -71,7 +71,7 @@
   </head>
   <body>
     <div id="view">
-      <div class="box" v-for="item in items" v-on:click="click(item)">
+      <div v-on:click="click()">
         <img class="icon" v-bind:src="item.playing?'../img/audio.gif':'../img/audio.png'" alt="" />
         <p>{{item.title}}</p>
         <p class="small">{{item.author}}</p>
@@ -85,7 +85,7 @@
       </div>
       <div v-show="!goon" class="center">
         <button class="button" v-on:click="seek(-20)">后退20秒</button>
-        <button class="button" v-on:click="click(current)">{{(current||{}).playing?'暂停':'播放'}}</button>
+        <button class="button" v-on:click="click()">{{item.playing?'暂停':'播放'}}</button>
         <button class="button" v-on:click="seek(20)">前进20秒</button>
       </div>      
       <div v-show="goon" class="center">
@@ -101,37 +101,21 @@
           el:"#view",
           data: {
             position: 0,
-            current: null,
+            item: {
+              title:"宗教和生命", 
+              author:"何威牧师",
+              url:"../audio/ssel-20190825.mp3", 
+              percent: 0,
+              total:4246.992,
+              duration: "--:--",
+              current: "00:00",
+              playing:false
+            },
             goon: false,
-            items:[
-              { 
-                title:"宗教和生命", 
-                author:"何威牧师",
-                url:"../audio/ssel-20190825.mp3", 
-                percent: 0,
-                total:4246.992,
-                duration: "--:--",
-                current: "00:00",
-                playing:false
-              }
-            ],
           },
           methods:{
-            click: function(item){
-              if(this.current==item){
-                audio.playing?audio.pause():audio.play();
-              }
-              else {
-                if(this.current){
-                  this.current.playing = false;
-                  this.current.percent = 0;
-                  this.current.current = this.format(0);
-                }
-                this.current = item;
-                audio.load(item.url);
-                audio.play();
-                window.localStorage.setItem("audio.url", item.url);
-              }
+            click: function(){
+              audio.playing?audio.pause():audio.play();
             },
             format: function(v){
               var ret = [];
@@ -152,37 +136,36 @@
             }
           }
         });
-        audio.onplay = function(){ view.current.playing = true; };
-        audio.onpause = function () { view.current.playing = false; };
+        audio.onplay = function(){ view.item.playing = true; };
+        audio.onpause = function () { view.item.playing = false; };
         audio.onended = function () {  
-          view.current.playing = false;
+          view.item.playing = false;
           window.localStorage.setItem("audio.current", 0);
         };
         audio.onupdate = function () { 
           var status = this.status();
-          view.current.current = view.format(status.current||0);
+          view.item.current = view.format(status.current||0);
           if(!isFinite(status.duration)){
             status.duration = 0;
           }
           else{
-            view.current.total = status.duration||0;
+            view.item.total = status.duration||0;
           };
           //console.log(view.current.total);
           view.position = status.current;
           window.localStorage.setItem("audio.current", status.current);
-          view.current.duration = view.format(view.current.total||0); 
-          view.current.percent = (status.current / view.current.total) * 100;
+          view.item.duration = view.format(view.current.total||0); 
+          view.item.percent = (status.current / view.item.total) * 100;
         };
-        for(var i=0;i<view.items.length; i++){
-          var item = view.items[i];
-          item.duration = view.format(item.total||0);
-        }
         var lasturl = window.localStorage.getItem("audio.url")||"";
         var lastv = window.localStorage.getItem("audio.current")||0;
-        var item = view.items[0];
+        var item = view.item;
+        audio.load(item.url);
+        audio.play();
         if((lasturl==item.url) && (lastv!=0)){
           view.goon = true;
         }  
+        window.localStorage.setItem("audio.url", item.url);        
         
       }(window);
     </script>
