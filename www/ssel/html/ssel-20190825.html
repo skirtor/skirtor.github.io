@@ -91,15 +91,15 @@
         <div class="center">
           <button class="button" v-on:click="click()">{{item.playing?'暂停':'播放'}}</button>
         </div>
-        <div class="center">
+        <div class="center" v-show="item.playing">
           <button class="button" v-on:click="seek(-20)">后退20秒</button>
           <button class="button" v-on:click="seek(20)">前进20秒</button>
         </div>
-        <div class="center">
+        <div class="center" v-show="item.playing">
           <button class="button" v-on:click="seek(-60)">后退1分钟</button>
           <button class="button" v-on:click="seek(60)">前进1分钟</button>
         </div>      
-        <div class="center">
+        <div class="center" v-show="item.playing">
           <button class="button" v-on:click="seek(-600)">后退10分钟</button>
           <button class="button" v-on:click="seek(600)">前进10分钟</button>
         </div>      
