@@ -124,7 +124,7 @@
               return ret.join(':');
             },
             play: function(v){
-              this.click(this.items[0]);
+              this.click();
               if(v>0){
                 var lastv = window.localStorage.getItem("audio.current")||0;
                 audio.seek(lastv);
