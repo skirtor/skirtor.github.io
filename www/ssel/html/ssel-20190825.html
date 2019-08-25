@@ -86,7 +86,7 @@
       <div v-show="!goon" class="center">
         <button class="button" v-on:click="seek(-60)">后退1分钟</button>
         <button class="button" v-on:click="seek(-20)">后退20秒</button>
-        <button class="button" v-on:click="click(current)">{{current.playing?'暂停':'播放'}}</button>
+        <button class="button" v-on:click="click(current)">{{(current||{}).playing?'暂停':'播放'}}</button>
         <button class="button" v-on:click="click(20)">前进20秒</button>
         <button class="button" v-on:click="click(60)">前进1分钟</button>
       </div>      
