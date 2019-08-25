@@ -65,6 +65,17 @@
       .button:active {
         background-color: #00CCCC;
       }
+      .button-normal {
+        color: #646464;
+        padding: 0.5em 2em;
+        border: none;
+        border-radius: 5px;
+        outline: none;
+        background-color: #EAEAEA;
+      }
+      .button-normal:active {
+        background-color: #FAFAFA;
+      }      
       .cbox {
         padding: 1em 0;
         border: solid 1px #EAEAEA;
@@ -99,16 +110,16 @@
         </div>
         <div class="cbox" v-show="item.playing">
           <div class="center">
-            <button class="button" v-on:click="seek(-20)">后退20秒</button>
-            <button class="button" v-on:click="seek(20)">前进20秒</button>
+            <button class="button-normal" v-on:click="seek(-20)">后退20秒</button>
+            <button class="button-normal" v-on:click="seek(20)">前进20秒</button>
           </div>
           <div class="center">
-            <button class="button" v-on:click="seek(-60)">后退1分钟</button>
-            <button class="button" v-on:click="seek(60)">前进1分钟</button>
+            <button class="button-normal" v-on:click="seek(-60)">后退1分钟</button>
+            <button class="button-normal" v-on:click="seek(60)">前进1分钟</button>
           </div>      
           <div class="center">
-            <button class="button" v-on:click="seek(-600)">后退10分钟</button>
-            <button class="button" v-on:click="seek(600)">前进10分钟</button>
+            <button class="button-normal" v-on:click="seek(-600)">后退10分钟</button>
+            <button class="button-normal" v-on:click="seek(600)">前进10分钟</button>
           </div>
         </div>
       </div>
