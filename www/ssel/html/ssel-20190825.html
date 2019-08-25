@@ -161,7 +161,6 @@
         var lastv = window.localStorage.getItem("audio.current")||0;
         var item = view.item;
         audio.load(item.url);
-        audio.play();
         if((lasturl==item.url) && (lastv!=0)){
           view.goon = true;
         }  
