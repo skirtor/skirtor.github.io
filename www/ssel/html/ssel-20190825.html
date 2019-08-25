@@ -154,7 +154,7 @@
           //console.log(view.current.total);
           view.position = status.current;
           window.localStorage.setItem("audio.current", status.current);
-          view.item.duration = view.format(view.current.total||0); 
+          view.item.duration = view.format(view.item.total||0); 
           view.item.percent = (status.current / view.item.total) * 100;
         };
         var lasturl = window.localStorage.getItem("audio.url")||"";
