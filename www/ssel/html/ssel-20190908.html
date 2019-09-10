@@ -193,7 +193,7 @@
           else{
             view.item.total = status.duration||0;
           };
-          console.log(view.current.total);
+          console.log(view.item.total);
           view.position = status.current;
           window.localStorage.setItem("audio.current", status.current);
           view.item.duration = view.format(view.item.total||0); 
