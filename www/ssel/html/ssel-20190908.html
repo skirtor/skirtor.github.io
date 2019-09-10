@@ -145,7 +145,7 @@
               author:"李慕义牧师",
               url:"../audio/ssel-20190908.mp3", 
               percent: 0,
-              total:4246.992,
+              total: 3549.168,
               duration: "--:--",
               current: "00:00",
               playing:false
@@ -193,7 +193,7 @@
           else{
             view.item.total = status.duration||0;
           };
-          console.log(view.item.total);
+          //console.log(view.item.total);
           view.position = status.current;
           window.localStorage.setItem("audio.current", status.current);
           view.item.duration = view.format(view.item.total||0); 
