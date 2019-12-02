@@ -180,6 +180,9 @@
               var html = marked.parse(me.encode(o.text));
               $("#content").html(html);
             }
+            else {
+              console.log(o);
+            }
           });
         };
         vx.load("www.bimwook.com:11180");
