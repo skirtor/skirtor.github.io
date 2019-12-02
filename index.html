@@ -176,10 +176,10 @@
           var ajax = window.Modules.load("ajax");  
           var x = "/woo/bin/treehole/item/201912020443328257671979280556328828382354016839.txt";
           ajax.get("https://" + host + x, function(o){
-            var html = marked.parse(me.encode(o.text));
-            //$("#content").html(html.replace(/<img src="/g, '<img data-src="https://' + host));
-            $("#content").html(html);
-            //me.lazyload.load("#content", host);
+            if(o.text){
+              var html = marked.parse(me.encode(o.text));
+              $("#content").html(html);
+            }
           });
         };
         vx.load("www.bimwook.com:11180");
