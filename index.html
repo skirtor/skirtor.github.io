@@ -174,7 +174,7 @@
           var me = this;
           var marked = window.Modules.load("marked"); 
           var ajax = window.Modules.load("ajax");  
-          var x = "/data/index.md";
+          var x = "/data/index.txt";
           ajax.get(x, function(o){
             if(o.text){
               var html = marked.parse(me.encode(o.text));
