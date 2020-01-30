@@ -1,0 +1,32 @@
+<svg version="1.1" viewBox="0 0 2100 2960" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <g id="item">
+      <rect x="0" y="0" width="80" height="80" stroke="gray" stroke-width="5" fill="none"></rect>
+      <path d="M110 80 L720 80" stroke="gray" stroke-width="5" fill="none"></path>
+    </g>
+  </defs>
+  <g style="font-size:16px; font-family: verdana;">
+    <text x="1050" y="180" text-anchor="middle" fill="gray" style="font-size: 5em;">MY DIARY</text>
+    <text x="80" y="350" text-anchor="start" fill="gray" style="font-size: 3em;">TODO LIST</text>
+    <text x="2000" y="350" text-anchor="end" fill="gray" style="font-size: 3em;">DATE：　　　　　　　　</text>
+    <text x="930" y="540" text-anchor="start" fill="gray" style="font-size: 3em;">MEMO：</text>
+    <text x="120" y="2420" text-anchor="start" fill="gray" style="font-size: 3em;">SUMMARY：</text>
+  </g>
+  <path d="M40 260 L2060 260" stroke="gray" stroke-width="5" fill="none" />
+  <path d="M40 400 L2060 400" stroke="gray" stroke-width="5" fill="none" />
+  <use x="80" y="500" xlink:href="#item"></use>
+  <use x="80" y="650" xlink:href="#item"></use>
+  <use x="80" y="800" xlink:href="#item"></use>
+  <use x="80" y="950" xlink:href="#item"></use>
+  <use x="80" y="1100" xlink:href="#item"></use>
+  <use x="80" y="1250" xlink:href="#item"></use>
+  <use x="80" y="1400" xlink:href="#item"></use>
+  <use x="80" y="1550" xlink:href="#item"></use>
+  <use x="80" y="1700" xlink:href="#item"></use>
+  <use x="80" y="1850" xlink:href="#item"></use>
+  <use x="80" y="2000" xlink:href="#item"></use>
+  <use x="80" y="2150" xlink:href="#item"></use>
+  <path d="M880 450 L880 2300" stroke-dasharray="8,8" stroke="gray" stroke-width="5" fill="none"></path>  
+  <rect x="80" y="2350" width="1940" height="560" stroke="gray" stroke-width="5" fill="none"></rect>
+</svg>
+
