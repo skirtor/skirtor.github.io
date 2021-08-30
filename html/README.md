@@ -1,12 +1,15 @@
 
-# Maxi - 大写的尴尬  
-  
-昨天逛街看到前面走着一妹子身材特好，  
-穿一及踝包臀长裙，特别紧身没开叉那种，更显身材了。  
-我和闺蜜俩人还在说真羡慕这妹子身材，穿这么紧裙子显身材…   
-结果就看着那妹子在天桥旁边站着不动了，  
-我俩正好也要过天桥就走近一看…  
-原来这妹子裙子太紧了迈不上楼梯，上不去天桥，正扶着栏杆一点点儿往上挪呢，  
-大写的尴尬… 这给我俩笑的啊！  
-我问闺蜜你还羡慕人家吗，闺蜜说鬼才羡慕呢哈哈哈！  
+　　# Weibo - Maxi-Skirt
+
+　　![weibo](https://wx4.sinaimg.cn/large/0089V0Kyly1gium2nr6zej30u01hce84.jpg) 
+　　![weibo](https://wx3.sinaimg.cn/large/0089V0Kyly1gtqna8edrcj30u01hezp4.jpg)
+　　![weibo](https://wx1.sinaimg.cn/large/0089V0Kyly1gtqna8dnb4j30u01hejwj.jpg) 
+　　![weibo](https://wx3.sinaimg.cn/large/0089V0Kyly1gtqna9j0u4j30u01hcwkf.jpg) 
+　　![weibo](https://wx4.sinaimg.cn/large/0089V0Kyly1gtqna9z0gij30u01hcndi.jpg) 
+　　![weibo](https://wx3.sinaimg.cn/large/0089V0Kyly1gtqna7437vj30u01hcn2g.jpg) 
+　　![weibo](https://wx2.sinaimg.cn/large/0089V0Kyly1gtqna90rloj30u01hcgs7.jpg) 
+　　![weibo](https://wx2.sinaimg.cn/large/0089V0Kyly1gtqna82gj6j30u01u9wpp.jpg) 
+　　![weibo](https://wx3.sinaimg.cn/large/0089V0Kyly1gtqna7ek8yj30u01hcjxt.jpg) 
+　　![weibo](https://wx1.sinaimg.cn/large/0089V0Kyly1gtqna7fne5j30t21e0wip.jpg) 
+
 
