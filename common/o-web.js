@@ -74,7 +74,7 @@ void function(w){
       }
     });
     w.end();
-  }({
+}({
     modules: [],
     add: function(name, module){
       this.modules.push({name: name, module: module});
@@ -86,4 +86,4 @@ void function(w){
         window.modules[m.name] = m.module;
       }
     }
-  });
+});
