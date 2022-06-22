@@ -34,11 +34,11 @@ void function(w){
             var m = row.match(/^([^:]*):(.*)$/);
             headers.push({name: m[1].trim(), value: m[2].trim() });
           });
-          done({status: this.status, text: (!!blob)?"[blob]":this.responseText, data: this.response, error: null, headers: headers, json: function(){ return me.json(this); }});
+          done({status: this.status, text: (blob)?"[blob]":this.responseText, data: this.response, error: null, headers: headers, json: function(){ return me.json(this); }});
         };
         xhr.open(method||"GET", url, true);
         xhr.setRequestHeader("X-With","o-muen/1.0");
-        if(!!blob){
+        if(blob){
           xhr.responseType = "blob";
         }
         else if( (method=="POST")||(method=="PUT")||(method=="DELETE") ){
