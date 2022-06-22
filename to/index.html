@@ -57,7 +57,7 @@
         frame.onload = function(){
           var me = this;
           w.setTimeout(function(){
-            title.innerText = me.contentWindow.document.title;
+            document.title = me.contentWindow.document.title;
           },0);
         }
         frame.src = www;
