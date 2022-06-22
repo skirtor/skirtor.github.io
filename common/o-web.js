@@ -1,4 +1,4 @@
-(function(w){
+void function(w){
     var woo = {};
     woo.json = function(o){
       try{
@@ -47,16 +47,43 @@
         xhr.send(data||"");
       });
     };
-    w.web = {
+    w.add("web", {
       get: async function(url){
         return await woo.go("GET", url, "");
       },
-      post:  async function(url, data){
+      post: async function(url, data){
         return await woo.go("POST", url, data);
       },
-      go:  async function(method, url, data){
+      go: async function(method, url, data){
         return await woo.go(method, url, data);
+      },
+      data: function(nv){
+        var ret = {
+          data:[],
+          add: function(name, value){
+            this.data.push(name + "=" + window.encodeURIComponent(value));
+          },
+          build: function(){
+            return this.data.join("&");
+          }
+        };
+        for(var n in nv){
+          ret.add(n, nv[n]);
+        }
+        return ret;
+      }
+    });
+    w.end();
+  }({
+    modules: [],
+    add: function(name, module){
+      this.modules.push({name: name, module: module});
+    },
+    end: function(){
+      window.modules = window.modules||{};
+      for(var i=0; i<this.modules.length; i++){
+        var m = this.modules[i];
+        window.modules[m.name] = m.module;
       }
     }
-  })(window);
-  
+  });
