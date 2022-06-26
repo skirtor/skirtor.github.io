@@ -14,4 +14,4 @@ since 2017-03-13.
 
 ----------------------------------------------------
 
-![img](https://skirtor.github.io/shez.jpg)
+![img](/shez.jpg)
