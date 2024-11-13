@@ -1,2 +1,0 @@
-- [xolor](./xolor/README.md)
-- [var](./var/README.md)

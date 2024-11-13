@@ -48,9 +48,6 @@
         #share{ display: none; }
       }
     </style>
-    <script type="text/javascript" src="/common/o-muen.js"></script>
-    <script type="text/javascript" src="/common/o-marked.js"></script>
-    <script type="text/javascript" src="/common/o-base64.js"></script>
   </head>
   <body>
     <div class="bar">
@@ -58,135 +55,11 @@
       <em> | </em>
       <em id="title" class="small"> 你会不会突然地出现... </em>
     </div>    
-    <div id="content"> 正在加载... </div>
+    <div id="content">v.omuen.com</div>
     <div class="bar">
       <em> &copy; v.omuen.com </em>
       <em class="small"> | Since 2006 </em>
     </div>
-    <script type="text/javascript">
-      -function(){
-        var $ = function(id){
-          return {
-            dom: document.querySelector(id),
-            html: function(data){
-              var me = this;
-              if(typeof(data)=="string"){
-                me.dom.innerHTML = data;
-              }
-              else {
-                return me.dom.innerHTML;
-              }
-            },
-            text: function(data){
-              var me = this;
-              if(typeof(data)=="string"){
-                me.dom.innerText = data;
-              }
-              else {
-                return me.dom.innerText;
-              }
-            },
-            append: function(node){
-              this.dom.appendChild(node);
-            }
-          }
-        };
-        var mn={};
-        mn.throttle = function(fn, delay){
-          var me = this;
-          var timer=null;
-          return function(){
-            var context=this, args=arguments;
-            window.clearTimeout(timer);
-            timer = window.setTimeout(function(){ fn.apply(me, args); },delay);
-          }
-        };
-        var vx={};
-        vx.rowid="";
-        vx.encode = function(s){
-          return s.replace(/\r/g, "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-        };
-        vx.lazyload = {
-          items: [], 
-          clear: function(){
-            items = [];
-          },
-          run: function(){
-            var me = this;
-            var top = (document.documentElement.scrollTop || document.body.scrollTop);
-            var line = top + document.documentElement.clientHeight;
-            var rest = [];
-            while(me.items.length>0){
-              var img = me.items.pop();
-              var t = img.offsetTop;
-              if((t>=top) && (t<=line)) {
-                img.onload = function(){
-                  this.style.cursor = "pointer";
-                  this.style.width="auto";
-                  this.style.background = "#EAEAEA";
-                  this.onclick = function(){  
-                    window.open(this.src);
-                  };
-                };
-                img.onerror = function(){
-                  this.style.cursor = "pointer";
-                  var src= this.src;
-                  this.onclick = function(){  
-                    this.src = src;
-                  };
-                  this.src="/img/opacity.png";
-                }
-                img.src = img.status.src;
-              }
-              else{
-                rest.push(img);
-              }
-            }
-            me.items = rest.reverse();
-            if(me.items.length==0) {
-              window.onscroll = null;
-            }
-          },
-          load: function(id, host){
-            var me = this;
-            var nodes = $(id).dom.getElementsByTagName("img");
-            var list = [];
-            for(var i=0; i<nodes.length; i++){ 
-              list.push(nodes[i]);
-            }
-            list.reverse();
-            for(var i=0; i<list.length; i++){ 
-              var img = list[i];
-              var src = img.attributes["data-src"]||{name:"",value:"/img/opacity.png"};
-              img.src= "/img/opacity.png";
-              img.style.width="100%";
-              img.style.height = "auto";
-              img.style.background = "silver url(/svg/loading.svg) no-repeat center center";
-              img.style.backgroundSize = "3rem 3rem";
-              img.status={loaded:false, src: src.value};
-              me.items.push(img);
-            }
-            window.onscroll = mn.throttle(function(){ me.run(); }, 500);
-            this.run();
-          }
-        };        
-        vx.load = function(){
-          var me = this;
-          var marked = window.Modules.load("marked"); 
-          var ajax = window.Modules.load("ajax");  
-          var x = "/data/index.txt";
-          ajax.get(x, function(o){
-            if(o.text){
-              var html = marked.parse(me.encode(o.text));
-              $("#content").html(html);
-            }
-            else {
-              console.log(o);
-            }
-          });
-        };
-        vx.load();
-      }();
-    </script>
+
   </body>
 </html>
