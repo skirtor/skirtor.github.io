@@ -61,7 +61,10 @@
       <em class="small"> | Since 2006 </em>
     </div>
     <script type="module">
+      import { web } from "./modules/web.js";
       setTimeout(()=>{
+        const url = "https://www.bimwook.com/about.io";
+        web.get(url).then(o=>{ console.log(o.text) });
         //window.location.replace("https://omuen.com");
       }, 1000);
     </script>
